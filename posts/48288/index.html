@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://suiang.cn/posts/48288/">
+    
+    
+    <title>AArdio 调用Go语言 | MY+ | 子非鱼，安知鱼之乐！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="AArdio,Golang">
+    <meta name="description" content="go语言自带的jsonrpc 不支持http/websocket，而是使用tcp协议，aardio中增加了一个库 wsock.tcp.jsonClient 支持与go语言进行jsonrpc调用。">
+<meta name="keywords" content="AArdio,Golang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AArdio 调用Go语言">
+<meta property="og:url" content="http://suiang.cn/posts/48288/index.html">
+<meta property="og:site_name" content="MY+">
+<meta property="og:description" content="go语言自带的jsonrpc 不支持http/websocket，而是使用tcp协议，aardio中增加了一个库 wsock.tcp.jsonClient 支持与go语言进行jsonrpc调用。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-09-10T16:59:13.916Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AArdio 调用Go语言">
+<meta name="twitter:description" content="go语言自带的jsonrpc 不支持http/websocket，而是使用tcp协议，aardio中增加了一个库 wsock.tcp.jsonClient 支持与go语言进行jsonrpc调用。">
+    
+        <link rel="alternate" type="application/atom+xml" title="MY+" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.17">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">苏扬</h5>
+          <a href="mailto:xautop@gmail.com" title="xautop@gmail.com" class="mail">xautop@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://weibo.com/xauto" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                微博
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yscoder/hexo-theme-indigo/wiki" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                链接
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">AArdio 调用Go语言</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">AArdio 调用Go语言</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-09-10T16:59:13.915Z" itemprop="datePublished" class="page-time">
+  2020-09-11
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/AArdio/">AArdio</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-调用go语言"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">AArdio 调用Go语言</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-09-11 00:59:13" datetime="2020-09-10T16:59:13.915Z"  itemprop="datePublished">2020-09-11</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/AArdio/">AArdio</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>go语言自带的jsonrpc 不支持http/websocket，而是使用tcp协议，<br>aardio中增加了一个库 wsock.tcp.jsonClient 支持与go语言进行jsonrpc调用。</p>
+<a id="more"></a>
+<p>先使用go语言编写一个exe文件（ 当然你可以把后缀名改为 dll，下面的代码一样可以运行 ）<br>go语言代码如下，注意 go里面{换行写是语法错误 ：</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">"fmt"</span></span><br><span class="line">    <span class="string">"log"</span></span><br><span class="line">    <span class="string">"net"</span></span><br><span class="line">    <span class="string">"net/rpc"</span></span><br><span class="line">    <span class="string">"net/rpc/jsonrpc"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Args <span class="keyword">struct</span> &#123;</span><br><span class="line">    X, Y <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> listener net.Listener</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Calculator <span class="keyword">struct</span>&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *Calculator)</span> <span class="title">Add</span><span class="params">(args *Args, reply *<span class="keyword">int</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    *reply = args.X + args.Y</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(t *Calculator)</span> <span class="title">Exit</span><span class="params">(args *<span class="keyword">int</span>, reply *<span class="keyword">int</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    listener.Close()</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    cal := <span class="built_in">new</span>(Calculator)</span><br><span class="line">    server := rpc.NewServer()</span><br><span class="line">    server.Register(cal)</span><br><span class="line"></span><br><span class="line">    listener, e := net.Listen(<span class="string">"tcp"</span>, <span class="string">"localhost:0"</span>)</span><br><span class="line">    <span class="keyword">if</span> e != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"error:%s\n"</span>, e)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        fmt.Printf(<span class="string">"%s\n"</span>, listener.Addr().String())</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> conn, err := listener.Accept(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">            log.Fatal(<span class="string">"error: "</span> + err.Error())</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">go</span> server.ServeCodec(jsonrpc.NewServerCodec(conn))</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>假设上面用go语言生成的exe文件名为gotest.exe，并且是放在当前工程目录下，然后我们用下面的 aardio 代码调用这个 gotest.exe 里的go函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> win.ui;</span><br><span class="line"><span class="comment">/*DSG&#123;&#123;*/</span></span><br><span class="line"><span class="keyword">var</span> winform = win.form(text=<span class="string">"aardio调用go语言演示"</span>;right=<span class="number">759</span>;bottom=<span class="number">469</span>)</span><br><span class="line">winform.add(</span><br><span class="line">button=&#123;cls=<span class="string">"button"</span>;text=<span class="string">"调用Go语言的Calculator.Add函数"</span>;left=<span class="number">382</span>;top=<span class="number">389</span>;right=<span class="number">678</span>;bottom=<span class="number">427</span>;z=<span class="number">5</span>&#125;;</span><br><span class="line">edit=&#123;cls=<span class="string">"edit"</span>;left=<span class="number">19</span>;top=<span class="number">12</span>;right=<span class="number">732</span>;bottom=<span class="number">352</span>;edge=<span class="number">1</span>;hscroll=<span class="number">1</span>;multiline=<span class="number">1</span>;vscroll=<span class="number">1</span>;z=<span class="number">1</span>&#125;;</span><br><span class="line">editX=&#123;cls=<span class="string">"edit"</span>;text=<span class="string">"2"</span>;left=<span class="number">109</span>;top=<span class="number">392</span>;right=<span class="number">185</span>;bottom=<span class="number">424</span>;edge=<span class="number">1</span>;z=<span class="number">2</span>&#125;;</span><br><span class="line">editY=&#123;cls=<span class="string">"edit"</span>;text=<span class="string">"3"</span>;left=<span class="number">238</span>;top=<span class="number">392</span>;right=<span class="number">320</span>;bottom=<span class="number">420</span>;edge=<span class="number">1</span>;z=<span class="number">3</span>&#125;;</span><br><span class="line"><span class="keyword">static</span>=&#123;cls=<span class="string">"static"</span>;text=<span class="string">"+"</span>;left=<span class="number">198</span>;top=<span class="number">395</span>;right=<span class="number">230</span>;bottom=<span class="number">420</span>;align=<span class="string">"center"</span>;transparent=<span class="number">1</span>;z=<span class="number">4</span>&#125;</span><br><span class="line">)</span><br><span class="line"><span class="comment">/*&#125;&#125;*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> wsock.tcp.jsonClient;</span><br><span class="line"><span class="keyword">import</span> process.popen;</span><br><span class="line"></span><br><span class="line"><span class="comment">//gotest.exe是使用go语言编写的exe文件。</span></span><br><span class="line"><span class="keyword">var</span> gofile = process.popen(<span class="string">"/gotest.exe"</span>);</span><br><span class="line"><span class="keyword">if</span>(!gofile) <span class="keyword">return</span> winform.msgbox(<span class="string">"启动go程序失败"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//读取服务端地址(使用自动分配的空闲端口避免冲突)</span></span><br><span class="line"><span class="keyword">var</span> url = gofile.read();</span><br><span class="line"><span class="keyword">if</span>( !url || string.startWith(url,<span class="string">"error:"</span>)  ) <span class="keyword">return</span> winform.msgbox(<span class="string">"启动go程序失败"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//连接go语言服务端</span></span><br><span class="line"><span class="keyword">var</span> go = wsock.tcp.jsonClient(url)</span><br><span class="line">winform.edit.print(<span class="string">"已连接到go程序"</span>,url);</span><br><span class="line"></span><br><span class="line">winform.button.oncommand = <span class="function"><span class="keyword">function</span>(<span class="params">id,event</span>)</span>&#123;</span><br><span class="line">   </span><br><span class="line">    <span class="comment">//调用go语言提供的函数</span></span><br><span class="line">    <span class="keyword">var</span> rep = go.Calculator.Add(&#123;</span><br><span class="line">        X = tonumber(winform.editX.text);</span><br><span class="line">        Y = tonumber(winform.editY.text);</span><br><span class="line">    &#125; )</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">if</span>( rep[[<span class="string">"result"</span>]] )&#123;  </span><br><span class="line">        winform.edit.print( <span class="string">"调用成功"</span>, rep.result )</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        winform.edit.print( rep[[<span class="string">"error"</span>]] )</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">winform.show()</span><br><span class="line">win.loopMessage();</span><br><span class="line"></span><br><span class="line"><span class="comment">//通知go程序退出</span></span><br><span class="line">go.Calculator.Exit(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>附：调用Go语言编译器例子</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line"><span class="keyword">import</span> golang;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> go = golang();</span><br><span class="line"></span><br><span class="line">go.runCode(<span class="string">"/hello.go"</span>,<span class="string">`</span></span><br><span class="line"><span class="string">package main</span></span><br><span class="line"><span class="string">import "fmt"</span></span><br><span class="line"><span class="string">func main() &#123;</span></span><br><span class="line"><span class="string">    fmt.Println("hello world")</span></span><br><span class="line"><span class="string">&#125;`</span>)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.pause();</span><br></pre></td></tr></table></figure>
+<p>最新版golang扩展库已支持自动下载配置Go编译器。<br>Go最新版已经支持调用生成DLL文件（需要调用gcc），在aardio中可以直接调用Go生成的DLL文件（使用cdecl调用约定），下面是调用Go编译器生成DLL的演示。  </p>
+<p>下面看演示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line"><span class="keyword">import</span> golang;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建Go编译器</span></span><br><span class="line"><span class="keyword">var</span> go = golang();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Go源码与字符串都是UTF-8编码，跟aardio一样很方便</span></span><br><span class="line">string.save(<span class="string">"/hello.go"</span>,<span class="string">`</span></span><br><span class="line"><span class="string">package main</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">import "C"</span></span><br><span class="line"><span class="string">import "fmt"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//export SayHello</span></span><br><span class="line"><span class="string">func SayHello(name string) &#123;</span></span><br><span class="line"><span class="string">    fmt.Printf("Go says: %s!\n", name)</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">func main() &#123;</span></span><br><span class="line"><span class="string">   //DLL入口函数,没有也要写个空的</span></span><br><span class="line"><span class="string">&#125; `</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//编译Go源码生成DLL文件</span></span><br><span class="line">go.buildShared(<span class="string">"/hello.go"</span>,<span class="string">"/hello.dll"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//加载Go编译的DLL，注意要指定cdecl调用约定</span></span><br><span class="line"><span class="keyword">var</span> dll = raw.loadDll(<span class="string">"/hello.dll"</span>,,<span class="string">"cdecl"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//直接就可以调用DLL里的函数，不用声明</span></span><br><span class="line"><span class="built_in">console</span>.open();</span><br><span class="line"><span class="keyword">var</span> str = <span class="string">"必须在Go函数名前面加上 export 函数名的注释才能导出函数"</span>;</span><br><span class="line">dll.SayHello(str,#str);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log( n )</span><br><span class="line"><span class="built_in">console</span>.pause();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Go写DLL要注意一个特别的地方，Go导出函数前必须写一行注释声明导出函数，例如上面的 //export SayHello</p>
+</blockquote>
+<p>Go语言里的字符串GoString是一个结构体，用aardio来表示是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">goString</span></span>&#123;</span><br><span class="line">    ctor( str )&#123;</span><br><span class="line">        <span class="keyword">this</span>.s = str;</span><br><span class="line">        this.n = #str;</span><br><span class="line">    &#125;;</span><br><span class="line">    string s;</span><br><span class="line">    addr n;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果是在API函数里传值，一个GoString展开为2个API参数来表示就可以了（一个字符串，后面跟一个字符串长度）</p>
+<p>因为aardio传结构体都是传指针，如果用结构体，在Go里面要声明为指针，示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line"><span class="keyword">import</span> golang;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建Go编译器</span></span><br><span class="line"><span class="keyword">var</span> go = golang();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Go源码与字符串都是UTF-8编码，跟aardio一样很方便</span></span><br><span class="line">string.save(<span class="string">"/hello.go"</span>,<span class="string">`</span></span><br><span class="line"><span class="string">package main</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">import "C"</span></span><br><span class="line"><span class="string">import "fmt"</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">//export SayHello</span></span><br><span class="line"><span class="string">func SayHello(name *string) &#123;</span></span><br><span class="line"><span class="string">    fmt.Printf("Go says: %s!\n", *name)</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">func main() &#123;</span></span><br><span class="line"><span class="string">   //DLL入口函数,没有也要写个空的</span></span><br><span class="line"><span class="string">&#125; `</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//编译Go源码生成DLL文件</span></span><br><span class="line">go.buildShared(<span class="string">"/hello.go"</span>,<span class="string">"/hello.dll"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//加载Go编译的DLL，注意要指定cdecl调用约定</span></span><br><span class="line"><span class="keyword">var</span> dll = raw.loadDll(<span class="string">"/hello.dll"</span>,,<span class="string">"cdecl"</span>);</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">goString</span></span>&#123;</span><br><span class="line">    ctor( str )&#123;</span><br><span class="line">        <span class="keyword">this</span>.s = str;</span><br><span class="line">        this.n = #str;</span><br><span class="line">    &#125;;</span><br><span class="line">    string s;</span><br><span class="line">    addr n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//直接就可以调用DLL里的函数，不用声明</span></span><br><span class="line"><span class="built_in">console</span>.open();</span><br><span class="line">dll.SayHello( goString( <span class="string">"必须在Go函数名前面加上 export 函数名的注释才能导出函数"</span>) );</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log( n )</span><br><span class="line"><span class="built_in">console</span>.pause();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>需要先安装MinGW( GCC )</p>
+</blockquote>
+<p>可以下载安装 MinGW-W64: <a href="https://sourceforge.net/projects/mingw-w64" target="_blank" rel="noopener">https://sourceforge.net/projects/mingw-w64</a> 这个只能安装在64位系统。<br>也可以下载安装 TDM-GCC: <a href="http://tdm-gcc.tdragon.net/download" target="_blank" rel="noopener">http://tdm-gcc.tdragon.net/download</a> 这个提供支持32位、64位安装包。  </p>
+<p>golang扩展库会自动搜索MinGW,MinGW-W64,TDM-GCC的安装位置，不需要手动配置。<br>当然也可以调用golang扩展库提供的addPath函数自己添加gcc.exe所在的目录。  </p>
+<p>Go生成的文件很大，加上<code>-ldflags &quot;-s -w&quot;</code>参数会小一些，<code>go.buildShared()</code> 已经自动加上这些参数。<br>编译上面的代码生成的DLL只有1MB多一点，而且可以支持WinXP，不需要依赖外部运行库，还是非常不错的。<br>而且测试了一下，编译的DLL还能内存加载。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-10T16:59:13.916Z" itemprop="dateUpdated">2020-09-11 00:59:13</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/posts/48288/" target="_blank" rel="external">http://suiang.cn/posts/48288/</a>
+        
+    </div>
+    <footer>
+        <a href="http://suiang.cn">
+            <img src="/img/avatar.jpg" alt="苏扬">
+            苏扬
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AArdio/">AArdio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Golang/">Golang</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://suiang.cn/posts/48288/&title=《AArdio 调用Go语言》 — MY+&pic=http://suiang.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://suiang.cn/posts/48288/&title=《AArdio 调用Go语言》 — MY+&source=go语言自带的jsonrpc 不支持http/websocket，而是使用tcp协议，aardio中增加了一个库 wsock.tcp.jsonClient..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://suiang.cn/posts/48288/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《AArdio 调用Go语言》 — MY+&url=http://suiang.cn/posts/48288/&via=http://suiang.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://suiang.cn/posts/48288/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/11315/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">使用 web.rest 调用 REST API</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>苏扬 &copy; 2015 - 2020</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://suiang.cn/posts/48288/&title=《AArdio 调用Go语言》 — MY+&pic=http://suiang.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://suiang.cn/posts/48288/&title=《AArdio 调用Go语言》 — MY+&source=go语言自带的jsonrpc 不支持http/websocket，而是使用tcp协议，aardio中增加了一个库 wsock.tcp.jsonClient..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://suiang.cn/posts/48288/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《AArdio 调用Go语言》 — MY+&url=http://suiang.cn/posts/48288/&via=http://suiang.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://suiang.cn/posts/48288/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://suiang.cn/posts/48288/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.17"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.17" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
