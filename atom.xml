@@ -6,7 +6,7 @@
   <link href="//atom.xml" rel="self"/>
   
   <link href="http://suiang.cn/"/>
-  <updated>2020-09-10T18:13:35.020Z</updated>
+  <updated>2020-09-11T01:59:30.448Z</updated>
   <id>http://suiang.cn/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Typora 自定义命令上传图片</title>
+    <link href="http://suiang.cn/posts/40698/"/>
+    <id>http://suiang.cn/posts/40698/</id>
+    <published>2020-09-11T01:57:00.045Z</published>
+    <updated>2020-09-11T01:59:30.448Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>Typora是我非常喜欢的Markdown编辑器，之前的一个更新，Typora支持了“上传图像”的功能（即写文章时，插入图片自动将其上传至图床），我们可以直接借助IPic、uPic、PicGo等程序，配合Typora自动将图片上传至又拍云等对象存储平台。但是，官方的文档晦涩难懂，我尝试进行了一些配置，但始终还是不好使，那咋办嘛？</p><a id="more"></a><p>其实，将本地图片上传至图床，这个过程本质上来说就是一条HTTP请求，但是如果这个过程还需要在后台一直开着一个图床软件或者安装一些命令行工具（更何况很多工具也是收费的），代价就有些大了。庆幸的是，Typora支持不借助这些图床工具，通过自定义命令（脚本）的方式，完成自动上传图片的功能。</p><p>那么，能不能自己写一个十几行代码的脚本来适配Typora呢？当然可以了。</p><h3 id="一起开始吧"><a href="#一起开始吧" class="headerlink" title="一起开始吧"></a>一起开始吧</h3><p>以Typora自定义命令上传图片为例，当我们从我们插入一张图片时，发生了什么？我们在Typora插入一张本地的图片后，Typora会调用预先设置的自定义命令（通常是运行一个脚本）来上传图片，自定义命令（脚本）上传完图片后输出（注意这里有坑）相应的URL，Typora会读取该URL，并自动把本地图片地址替换为相应的URL。所以只要配置得当，我们在写作时，只需要准备好素材，直接对素材<code>command + c</code>、<code>command + v</code>了。</p><blockquote><p>如果我们要通过自定义命令来上传图片，只需要三步：</p></blockquote><ul><li>编写能够上传图片至相应的图床或者对象存储的脚本</li><li>在偏好设置中进行相应的设置</li><li>测试是否正常</li></ul><h3 id="编写脚本"><a href="#编写脚本" class="headerlink" title="编写脚本"></a>编写脚本</h3><p>脚本如下所示:</p><figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@<span class="built_in">echo</span> off</span><br><span class="line"><span class="built_in">echo</span> Upload Success:</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">exist</span> %<span class="number">1</span>  curl -F name=@%<span class="number">1</span> https://img.vim-cn.com/</span><br><span class="line"><span class="keyword">if</span> <span class="keyword">exist</span> %<span class="number">2</span>  curl -F name=@%<span class="number">2</span> https://img.vim-cn.com/</span><br></pre></td></tr></table></figure><p>我们在写一个脚本的时候，大体上关注三部分内容，输入、处理过程和输出。处理过程是自己实现的所以还好，但Typora上传图片自定义命令的<strong>传参和输出</strong>是真的奇坑。</p><ul><li><code>传参</code>。Typora上传图片调用自定义命令时，会将待上传的图片作为命令行参数，传入脚本。如<code>bash upload.sh 1.jpg 2.jpg</code>，这里具体有几张待上传的图片不确定，所以参数长度是不固定的，你的脚本必须上传所有作为参数传入的图片。Typora并没有在文档中直接说明这一点（传参的方式、长度），真的给我坑坏了。</li><li><code>输出</code>。事实上，Typora并不关心我们脚本中上传图片的具体过程如何，它只关心我们脚本的最终输出。Typora要求脚本输出结果的方式简单粗暴，直接<code>echo</code>（其他语言比如Python的<code>print</code>）。注意，直接<code>echo</code>也是有格式要求的，脚本需要首先输出<code>Upload Success:</code>，之后，一行对应一个URL，具体格式如下：</li></ul><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Upload Success:</span><br><span class="line">https:<span class="comment">//sample.com/1.jpg</span></span><br><span class="line">https:<span class="comment">//sample.com/2.jpg</span></span><br></pre></td></tr></table></figure><p>这里，我使用bat脚本，事实上，你可以使用任何变成语言，上传图片至任意的平台。只要你脚本处理好传入的参数，上传完所有图片，最终的输出结果是上面的格式即可。</p><h3 id="偏好设置"><a href="#偏好设置" class="headerlink" title="偏好设置"></a>偏好设置</h3><p>Typora上传脚本支持的自定义命令，可以在偏好设置中选择。上传服务选择<code>Custom Command</code>，自定义命令就是我们插入图片后，Typora调用的命令。如刚才我们的脚本名称为<code>upload.cmd</code>，自定义命令就可以设为<code>upload</code>，注意替换<code>upload</code>的路径为绝对路径。</p><p><img src="https://img.vim-cn.com/b7/8ed707df5626286d7bc8cbc6223cbcf8b20e8c.png" alt="偏好设置"></p><h3 id="测试是否正常"><a href="#测试是否正常" class="headerlink" title="测试是否正常"></a>测试是否正常</h3><blockquote><p>完成脚本和偏好设置后，就可以测试脚本是否正常了。打开偏好设置，直接点击<code>验证图片上传选项</code>。</p></blockquote><p><img src="https://img.vim-cn.com/57/0e459bec95d1a22600da013d1fc1fab2f252f4.png" alt="验证图片"></p><h3 id="尾巴"><a href="#尾巴" class="headerlink" title="尾巴"></a>尾巴</h3><p>市面上确实有很多功能丰富的Markdown编辑器，但所见即所得、小巧轻量的Typora依然是我最喜欢的。图片上传功能的加入，极大方便了写作的过程，想想之前，写文章需要手动将图片拖到图床APP，再把URL复制到文章中，就两个字，“繁琐”。</p><p>最后，用Typora写作，自定义命令上传图片，自己写一个脚本，四行代码，卸载掉各种图床工具，插入图片直接<code>command + v</code>，写作原本就该这么简单嘛！&copy; </p>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;背景&quot;&gt;&lt;a href=&quot;#背景&quot; class=&quot;headerlink&quot; title=&quot;背景&quot;&gt;&lt;/a&gt;背景&lt;/h3&gt;&lt;p&gt;Typora是我非常喜欢的Markdown编辑器，之前的一个更新，Typora支持了“上传图像”的功能（即写文章时，插入图片自动将其上传至图床），我们可以直接借助IPic、uPic、PicGo等程序，配合Typora自动将图片上传至又拍云等对象存储平台。但是，官方的文档晦涩难懂，我尝试进行了一些配置，但始终还是不好使，那咋办嘛？&lt;/p&gt;
+    
+    </summary>
+    
+      <category term="Markdown" scheme="http://suiang.cn/categories/Markdown/"/>
+    
+    
+      <category term="Typora" scheme="http://suiang.cn/tags/Typora/"/>
+    
+      <category term="Markdown" scheme="http://suiang.cn/tags/Markdown/"/>
+    
+  </entry>
   
   <entry>
     <title>多线程入门</title>
