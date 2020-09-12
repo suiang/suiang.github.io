@@ -31,6 +31,8 @@
 <meta property="og:description" content="摘要本部分用于说明流式(flow)属性和弹性(flex)单位. 使用它们可以创建非常灵活地适用于各种各样的视图(view)和内容尺寸(content sizes)的布局。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img.vim-cn.com/92/0f32941369a9e30998b81ce1c9f54c7b7ffe35.png">
+<meta property="og:image" content="https://img.vim-cn.com/55/7442565ccfb4ae616d88c61fcc0fb9c269b30a.png">
+<meta property="og:image" content="https://img.vim-cn.com/b8/adae7cd9265cf169e31796dc98ea4c389989b1.png">
 <meta property="og:image" content="https://img.vim-cn.com/6c/b926ecaf1611909c35a0774c359e1649b32753.png">
 <meta property="og:image" content="https://img.vim-cn.com/d1/28bcfe19584bd1c54bbe25e0a391c865a77783.png">
 <meta property="og:image" content="https://img.vim-cn.com/ed/01a65704b6d7271b62f8d69fdce91b0b2734f0.png">
@@ -39,7 +41,7 @@
 <meta property="og:image" content="https://img.vim-cn.com/ee/717efba8a1abeea2983415f521e3c308052f22.png">
 <meta property="og:image" content="https://img.vim-cn.com/fe/416dcc88738f76f549d74492e717ddac18a437.png">
 <meta property="og:image" content="https://img.vim-cn.com/4f/d6bd02889220c7642f6b66c45c15be79d20959.png">
-<meta property="og:updated_time" content="2020-09-12T06:57:37.079Z">
+<meta property="og:updated_time" content="2020-09-12T07:03:20.073Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CSS 灵活的流(Flow)布局">
 <meta name="twitter:description" content="摘要本部分用于说明流式(flow)属性和弹性(flex)单位. 使用它们可以创建非常灵活地适用于各种各样的视图(view)和内容尺寸(content sizes)的布局。">
@@ -244,79 +246,9 @@
 <p>若为段落<code>&lt;p&gt;first second&lt;/p&gt;</code>设置<code>width:min-intrinsic</code>时，该段落的宽度为该段落中最宽的那个单词的宽度。<br>若为这个段落设置<code>width:max-intrinsic</code>时，则它的宽度为该段落中所有单词和空格长度的总和——该段落将呈现为单行文本。</p>
 </blockquote>
 <h2 id="3-流-flow-属性"><a href="#3-流-flow-属性" class="headerlink" title="3. 流(flow)属性"></a>3. 流(flow)属性</h2><p>流(flow)属性定义了容器如何布局它的子元素们。或者说，它建立了容器元素的布局管理器。<br><strong>‘flow’</strong></p>
-<table>
-<thead>
-<tr>
-<th><code>*可取值：*</code></th>
-<th><code>default  horizontal  vertical  horizontal-flow  vertical-flow  模板  row(...)  stack  inherit  text</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>*初始值:*</code></td>
-<td><code>default</code></td>
-</tr>
-<tr>
-<td><code>*可应用于:*</code></td>
-<td><code>盒元素dsiplay模型为blocks inside, 如block、block-inline</code></td>
-</tr>
-<tr>
-<td><code>*是否可继承:*</code></td>
-<td><code>否</code></td>
-</tr>
-<tr>
-<td><code>*是否支持百分比:*</code></td>
-<td><code>否</code></td>
-</tr>
-<tr>
-<td><code>*媒体类型:*</code></td>
-<td><code>可视</code></td>
-</tr>
-<tr>
-<td><code>*计算值:*</code></td>
-<td><code>特定的值</code></td>
-</tr>
-</tbody>
-</table>
+<p><img src="https://img.vim-cn.com/55/7442565ccfb4ae616d88c61fcc0fb9c269b30a.png" alt="image-20200912150024749" style="zoom:50%;"> </p>
 <p>该属性定义了子元素在正常流中的布局方法：</p>
-<table>
-<thead>
-<tr>
-<th><code>flow值</code></th>
-<th><code>子元素呈现结果</code></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>vertical</code></td>
-<td><code>垂直放置</code></td>
-</tr>
-<tr>
-<td><code>horizontal</code></td>
-<td><code>水平放置在一个单一的行。方向由*direction*属性定义，特别是ltr和rtl值。</code></td>
-</tr>
-<tr>
-<td><code>horizontal-flow</code></td>
-<td><code>水平放置，如果需要，可以换行成多行。方向由*direction*属性定义</code></td>
-</tr>
-<tr>
-<td><code>vertical-flow</code></td>
-<td><code>垂直放置, 如果需要，可以换列成多列。</code></td>
-</tr>
-<tr>
-<td><code>&quot;模板&quot;</code></td>
-<td><code>根据模板来布局。通过 float:&quot;名称&quot; 来将子元素绑定到模板中一个命名的单元格。</code></td>
-</tr>
-<tr>
-<td><code>row(标签1,标签2,...)</code></td>
-<td><code>根据row()模板函数来制定位置。</code></td>
-</tr>
-<tr>
-<td><code>stack</code></td>
-<td><code>元素堆叠在一起。</code></td>
-</tr>
-</tbody>
-</table>
+<p><img src="https://img.vim-cn.com/b8/adae7cd9265cf169e31796dc98ea4c389989b1.png" alt="image-20200912150155201" style="zoom:50%;"> </p>
 <p>文档中使用的术语：</p>
 <ul>
 <li><p><em>流式容器<code>(flow container)</code></em></p>
@@ -491,7 +423,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2020-09-12T06:57:37.079Z" itemprop="dateUpdated">2020-09-12 14:57:37</time>
+    最后更新时间：<time datetime="2020-09-12T07:03:20.073Z" itemprop="dateUpdated">2020-09-12 15:03:20</time>
 </span><br>
 
 
