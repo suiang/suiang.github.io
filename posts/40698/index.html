@@ -23,32 +23,31 @@
     
     <meta name="keywords" content="Typora,Markdown">
     <meta name="description" content="背景Typora是我非常喜欢的Markdown编辑器，之前的一个更新，Typora支持了“上传图像”的功能（即写文章时，插入图片自动将其上传至图床），我们可以直接借助IPic、uPic、PicGo等程序，配合Typora自动将图片上传至又拍云等对象存储平台。但是，官方的文档晦涩难懂，我尝试进行了一些配置，但始终还是不好使，那咋办嘛？">
+<meta name="keywords" content="Typora,Markdown">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Typora 自定义命令上传图片">
 <meta property="og:url" content="http://suiang.cn/posts/40698/index.html">
 <meta property="og:site_name" content="MY+">
 <meta property="og:description" content="背景Typora是我非常喜欢的Markdown编辑器，之前的一个更新，Typora支持了“上传图像”的功能（即写文章时，插入图片自动将其上传至图床），我们可以直接借助IPic、uPic、PicGo等程序，配合Typora自动将图片上传至又拍云等对象存储平台。但是，官方的文档晦涩难懂，我尝试进行了一些配置，但始终还是不好使，那咋办嘛？">
-<meta property="og:locale" content="zh_CN">
+<meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://img.vim-cn.com/b7/8ed707df5626286d7bc8cbc6223cbcf8b20e8c.png">
 <meta property="og:image" content="https://img.vim-cn.com/57/0e459bec95d1a22600da013d1fc1fab2f252f4.png">
-<meta property="article:published_time" content="2020-10-03T13:12:35.674Z">
-<meta property="article:modified_time" content="2020-09-11T02:01:37.793Z">
-<meta property="article:author" content="苏扬">
-<meta property="article:tag" content="Typora">
-<meta property="article:tag" content="Markdown">
+<meta property="og:updated_time" content="2020-09-11T02:01:37.793Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Typora 自定义命令上传图片">
+<meta name="twitter:description" content="背景Typora是我非常喜欢的Markdown编辑器，之前的一个更新，Typora支持了“上传图像”的功能（即写文章时，插入图片自动将其上传至图床），我们可以直接借助IPic、uPic、PicGo等程序，配合Typora自动将图片上传至又拍云等对象存储平台。但是，官方的文档晦涩难懂，我尝试进行了一些配置，但始终还是不好使，那咋办嘛？">
 <meta name="twitter:image" content="https://img.vim-cn.com/b7/8ed707df5626286d7bc8cbc6223cbcf8b20e8c.png">
     
         <link rel="alternate" type="application/atom+xml" title="MY+" href="/atom.xml">
     
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=1.6.17">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
     
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+</head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -179,7 +178,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%83%8C%E6%99%AF"><span class="post-toc-number">1.</span> <span class="post-toc-text">背景</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%B8%80%E8%B5%B7%E5%BC%80%E5%A7%8B%E5%90%A7"><span class="post-toc-number">2.</span> <span class="post-toc-text">一起开始吧</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BC%96%E5%86%99%E8%84%9A%E6%9C%AC"><span class="post-toc-number">3.</span> <span class="post-toc-text">编写脚本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%81%8F%E5%A5%BD%E8%AE%BE%E7%BD%AE"><span class="post-toc-number">4.</span> <span class="post-toc-text">偏好设置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E6%B5%8B%E8%AF%95%E6%98%AF%E5%90%A6%E6%AD%A3%E5%B8%B8"><span class="post-toc-number">5.</span> <span class="post-toc-text">测试是否正常</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%B0%BE%E5%B7%B4"><span class="post-toc-number">6.</span> <span class="post-toc-text">尾巴</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#背景"><span class="post-toc-number">1.</span> <span class="post-toc-text">背景</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一起开始吧"><span class="post-toc-number">2.</span> <span class="post-toc-text">一起开始吧</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#编写脚本"><span class="post-toc-number">3.</span> <span class="post-toc-text">编写脚本</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#偏好设置"><span class="post-toc-number">4.</span> <span class="post-toc-text">偏好设置</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#测试是否正常"><span class="post-toc-number">5.</span> <span class="post-toc-text">测试是否正常</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#尾巴"><span class="post-toc-number">6.</span> <span class="post-toc-text">尾巴</span></a></li></ol>
         </nav>
     </aside>
     
@@ -206,7 +205,6 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><p>Typora是我非常喜欢的Markdown编辑器，之前的一个更新，Typora支持了“上传图像”的功能（即写文章时，插入图片自动将其上传至图床），我们可以直接借助IPic、uPic、PicGo等程序，配合Typora自动将图片上传至又拍云等对象存储平台。但是，官方的文档晦涩难懂，我尝试进行了一些配置，但始终还是不好使，那咋办嘛？</p>
 <a id="more"></a>
-
 <p>其实，将本地图片上传至图床，这个过程本质上来说就是一条HTTP请求，但是如果这个过程还需要在后台一直开着一个图床软件或者安装一些命令行工具（更何况很多工具也是收费的），代价就有些大了。庆幸的是，Typora支持不借助这些图床工具，通过自定义命令（脚本）的方式，完成自动上传图片的功能。</p>
 <p>那么，能不能自己写一个十几行代码的脚本来适配Typora呢？当然可以了。</p>
 <h3 id="一起开始吧"><a href="#一起开始吧" class="headerlink" title="一起开始吧"></a>一起开始吧</h3><p>以Typora自定义命令上传图片为例，当我们从我们插入一张图片时，发生了什么？我们在Typora插入一张本地的图片后，Typora会调用预先设置的自定义命令（通常是运行一个脚本）来上传图片，自定义命令（脚本）上传完图片后输出（注意这里有坑）相应的URL，Typora会读取该URL，并自动把本地图片地址替换为相应的URL。所以只要配置得当，我们在写作时，只需要准备好素材，直接对素材<code>command + c</code>、<code>command + v</code>了。</p>
@@ -234,7 +232,7 @@
 </blockquote>
 <p><img src="https://img.vim-cn.com/57/0e459bec95d1a22600da013d1fc1fab2f252f4.png" alt="验证图片"></p>
 <h3 id="尾巴"><a href="#尾巴" class="headerlink" title="尾巴"></a>尾巴</h3><p>市面上确实有很多功能丰富的Markdown编辑器，但所见即所得、小巧轻量的Typora依然是我最喜欢的。图片上传功能的加入，极大方便了写作的过程，想想之前，写文章需要手动将图片拖到图床APP，再把URL复制到文章中，就两个字，“繁琐”。</p>
-<p>最后，用Typora写作，自定义命令上传图片，自己写一个脚本，四行代码，卸载掉各种图床工具，插入图片直接<code>command + v</code>，写作原本就该这么简单嘛！&copy; </p>
+<p>最后，用Typora写作，自定义命令上传图片，自己写一个脚本，四行代码，卸载掉各种图床工具，插入图片直接<code>command + v</code>，写作原本就该这么简单嘛！&copy; </p>
 
         </div>
 
@@ -263,7 +261,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/" rel="tag">Markdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Typora/" rel="tag">Typora</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Markdown/">Markdown</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Typora/">Typora</a></li></ul>
 
 
             
@@ -365,7 +363,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">

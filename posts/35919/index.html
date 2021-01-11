@@ -23,29 +23,28 @@
     
     <meta name="keywords" content="AArdio,API">
     <meta name="description" content="一般建议不要先声明API再去调用，直接调用更方便也更节省资源(除非有特殊的数据类型必须通过声明API来指定)。">
+<meta name="keywords" content="AArdio,API">
 <meta property="og:type" content="article">
 <meta property="og:title" content="不声明直接调用 API 函数">
 <meta property="og:url" content="http://suiang.cn/posts/35919/index.html">
 <meta property="og:site_name" content="MY+">
 <meta property="og:description" content="一般建议不要先声明API再去调用，直接调用更方便也更节省资源(除非有特殊的数据类型必须通过声明API来指定)。">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-10-03T13:12:35.770Z">
-<meta property="article:modified_time" content="2020-09-10T16:59:13.907Z">
-<meta property="article:author" content="苏扬">
-<meta property="article:tag" content="AArdio">
-<meta property="article:tag" content="API">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-09-10T16:59:13.907Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="不声明直接调用 API 函数">
+<meta name="twitter:description" content="一般建议不要先声明API再去调用，直接调用更方便也更节省资源(除非有特殊的数据类型必须通过声明API来指定)。">
     
         <link rel="alternate" type="application/atom+xml" title="MY+" href="/atom.xml">
     
-    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="shortcut icon" href="/img/favicon.ico">
     <link rel="stylesheet" href="/css/style.css?v=1.6.17">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
     
 
-<meta name="generator" content="Hexo 5.3.0"></head>
+</head>
 
 <body>
     <div id="loading" class="active"></div>
@@ -176,7 +175,7 @@
     <aside class="post-widget">
         <nav class="post-toc-wrap" id="post-toc">
             <h4>TOC</h4>
-            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%8F%82%E6%95%B0%E7%9A%84%E8%A7%84%E5%88%99"><span class="post-toc-number">1.</span> <span class="post-toc-text">添加参数的规则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E8%BF%94%E5%9B%9E%E5%80%BC%E7%9A%84%E8%A7%84%E5%88%99"><span class="post-toc-number">2.</span> <span class="post-toc-text">获取返回值的规则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8-API-%E5%B0%BE%E6%A0%87"><span class="post-toc-number">3.</span> <span class="post-toc-text">使用 [ API 尾标 ]</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="post-toc-number">4.</span> <span class="post-toc-text">如何使用字符串</span></a></li></ol>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#添加参数的规则"><span class="post-toc-number">1.</span> <span class="post-toc-text">添加参数的规则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#获取返回值的规则"><span class="post-toc-number">2.</span> <span class="post-toc-text">获取返回值的规则</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用-API-尾标"><span class="post-toc-number">3.</span> <span class="post-toc-text">使用 [ API 尾标 ]</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#如何使用字符串"><span class="post-toc-number">4.</span> <span class="post-toc-text">如何使用字符串</span></a></li></ol>
         </nav>
     </aside>
     
@@ -203,9 +202,8 @@
         <div class="post-content" id="post-content" itemprop="postContent">
             <p>一般建议不要先声明API再去调用，直接调用更方便也更节省资源(除非有特殊的数据类型必须通过声明API来指定)。</p>
 <a id="more"></a>
-
 <p>示例： </p>
-<p> <code>::User32.MessageBox(0,&quot;测试&quot;,&quot;标题&quot;,0) </code></p>
+<p> <code>::User32.MessageBox(0,&quot;测试&quot;,&quot;标题&quot;,0)</code></p>
 <h2 id="添加参数的规则"><a href="#添加参数的规则" class="headerlink" title="添加参数的规则"></a>添加参数的规则</h2><ol>
 <li><p>调用约定在加载DLL的参数中指定,支持cdecl不定个数参数,有很多API根据不同的用法可以传入不同类型的参数， 如果我们在aardio中不是先写一个API声明，而是直接去调用API，这时候就可以根据需要更灵活的改变参数类型。一般建议不要先声明API再去调用 - 直接调用更方便也更节省资源(除非有特殊的数据类型必须通过声明API来指定)。 </p>
 </li>
@@ -225,7 +223,7 @@
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> n = &#123; word value &#125;</span><br><span class="line">dll.getNumber(n)</span><br></pre></td></tr></table></figure>
 <ol start="6">
-<li><p>API函数中的数组指针，在<code>aardio</code>中可以使用结构体指针替代，例如C语言中的 <code>int data[4];</code> 在aardio中写为 <code>&#123;int data[4];&#125;</code> 如果是字节数组指针也可以使用<code>raw.buffer()</code>函数创建的字节数组替代。 </p>
+<li><p>API函数中的数组指针，在<code>aardio</code>中可以使用结构体指针替代，例如C语言中的 <code>int data[4];</code> 在aardio中写为 <code>{int data[4];}</code> 如果是字节数组指针也可以使用<code>raw.buffer()</code>函数创建的字节数组替代。 </p>
 </li>
 <li><p>所有结构体一律处理为输出参数并在<code>aardio</code>返回值中返回，其他类型只能作为输入参数。注意在<code>aardio</code>中，任何结构体在API调用中传递的都是结构体指针（传址）。 </p>
 </li>
@@ -242,7 +240,7 @@
 </ol>
 <h2 id="使用-API-尾标"><a href="#使用-API-尾标" class="headerlink" title="使用 [ API 尾标 ]"></a>使用 [ API 尾标 ]</h2><p>当不声明直接调用API时，API函数名尾部如果不是大写字符，则可以使用一个大写的特定字符（API尾标）修改默认的API调用规则，在API函数名后添加尾标，不会影响到查找API函数的结果，无论真实的API带不带指定的尾标 - aardio都能找到真实的函数。 所有可用的[API尾标]如下（函数名的最后一个特定字符是尾标）：</p>
 <blockquote>
-<p><code>dll.ApiNameW()</code> 切换到<code>Unicode</code>版本，字符串<code>UTF8</code>&lt;-&gt;<code>UTF16</code>双向转换<br><code>dll.ApiNameA()</code> 切换到<code>ANSI</code>版本,字符串不作任何转换<br><code>dll.ApiNameL()</code> 返回值为64位<code>LONG</code>类型<br><code>dll.ApiNameP()</code> 返回值为指针类型<br><code>dll.ApiNameD()</code> 返回值为<code>double</code>浮点数<br><code>dll.ApiNameF()</code> 返回值为<code>float</code>浮点数<br><code>dll.ApiNameB()</code> 返回值为 C++ 中的8位<code>bool</code>类型</p>
+<p><code>dll.ApiNameW()</code> 切换到<code>Unicode</code>版本，字符串<code>UTF8</code><-><code>UTF16</code>双向转换<br><code>dll.ApiNameA()</code> 切换到<code>ANSI</code>版本,字符串不作任何转换<br><code>dll.ApiNameL()</code> 返回值为64位<code>LONG</code>类型<br><code>dll.ApiNameP()</code> 返回值为指针类型<br><code>dll.ApiNameD()</code> 返回值为<code>double</code>浮点数<br><code>dll.ApiNameF()</code> 返回值为<code>float</code>浮点数<br><code>dll.ApiNameB()</code> 返回值为 C++ 中的8位<code>bool</code>类型</-></p>
 </blockquote>
 <h2 id="如何使用字符串"><a href="#如何使用字符串" class="headerlink" title="如何使用字符串"></a>如何使用字符串</h2><ol>
 <li><p>字符串一般直接转换为字符串指针，<code>buffer</code>类型字节数组也可以作为字符串指针使用，如果API需要向字符串指向的内存中写入数据，那么必须使用<code>raw.buffer()</code>函数创建定长的字节数组。普通的<code>aardio</code>字符串指向的内存是禁止写入的（<code>aardio</code>中修改普通字符串会返回新的字符串对象，而不是在原内存上修改数据） </p>
@@ -290,7 +288,7 @@
 
         <div class="post-footer">
             
-	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AArdio/" rel="tag">AArdio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/API/" rel="tag">API</a></li></ul>
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AArdio/">AArdio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/API/">API</a></li></ul>
 
 
             
@@ -392,7 +390,7 @@
             
                 <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
             
-            <span>博客内容遵循 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
         </p>
     </div>
     <div class="bottom">
