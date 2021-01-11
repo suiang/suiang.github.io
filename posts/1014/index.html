@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://suiang.cn/posts/1014/">
+    
+    
+    <title>多线程入门 | MY+ | 子非鱼，安知鱼之乐！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="AArdio">
+    <meta name="description" content="背景 当你点击EXE文件系统一个应用程序的时候 - 系统会创建一个进程（process）而在一个进程内可以包含多个线程(thread)。用来显示界面的线程，我们通常称为“界面线程”，其他不是用来显示界面的线程，我们一般称为“工作线程”或者是“后台线程”。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="多线程入门">
+<meta property="og:url" content="http://suiang.cn/posts/1014/index.html">
+<meta property="og:site_name" content="MY+">
+<meta property="og:description" content="背景 当你点击EXE文件系统一个应用程序的时候 - 系统会创建一个进程（process）而在一个进程内可以包含多个线程(thread)。用来显示界面的线程，我们通常称为“界面线程”，其他不是用来显示界面的线程，我们一般称为“工作线程”或者是“后台线程”。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-03T13:12:35.938Z">
+<meta property="article:modified_time" content="2020-09-10T18:13:35.020Z">
+<meta property="article:author" content="苏扬">
+<meta property="article:tag" content="AArdio">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="MY+" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.17">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">苏扬</h5>
+          <a href="mailto:xautop@gmail.com" title="xautop@gmail.com" class="mail">xautop@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aardio"  >
+                <i class="icon icon-lg icon-file-code-o"></i>
+                扩展
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aardio/code"  >
+                <i class="icon icon-lg icon-code"></i>
+                代码
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yscoder/hexo-theme-indigo/wiki" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                链接
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">多线程入门</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">多线程入门</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-10-03T13:12:35.938Z" itemprop="datePublished" class="page-time">
+  2020-10-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/AArdio/">AArdio</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%83%8C%E6%99%AF"><span class="post-toc-number">1.</span> <span class="post-toc-text">背景</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B"><span class="post-toc-number">2.</span> <span class="post-toc-text">创建线程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%BA%BF%E7%A8%8B%E7%9A%84%E8%A7%84%E5%88%99%E4%B8%8E%E9%99%90%E5%88%B6"><span class="post-toc-number">3.</span> <span class="post-toc-text">线程的规则与限制</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BA%A4%E6%8D%A2%E5%8F%98%E9%87%8F%E7%9A%84%E6%96%B9%E6%B3%95"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">交换变量的方法</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#%E4%BA%A4%E6%8D%A2%E5%8F%98%E9%87%8F%E7%9A%84%E8%A7%84%E5%88%99"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">交换变量的规则</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%B0%83%E7%94%A8%E7%AA%97%E5%8F%A3%E5%AF%B9%E8%B1%A1"><span class="post-toc-number">4.</span> <span class="post-toc-text">调用窗口对象</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%95%8C%E9%9D%A2%E4%B8%8E%E9%80%BB%E8%BE%91%E5%88%86%E7%A6%BB"><span class="post-toc-number">5.</span> <span class="post-toc-text">界面与逻辑分离</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E4%BD%BF%E7%94%A8%E7%BA%BF%E7%A8%8B%E5%8F%A5%E6%9F%84"><span class="post-toc-number">6.</span> <span class="post-toc-text">使用线程句柄</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E7%AE%A1%E7%90%86%E5%A4%9A%E7%BA%BF%E7%A8%8B"><span class="post-toc-number">7.</span> <span class="post-toc-text">管理多线程</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E8%8E%B7%E5%8F%96%E7%BA%BF%E7%A8%8B%E8%BF%94%E5%9B%9E%E5%80%BC"><span class="post-toc-number">8.</span> <span class="post-toc-text">获取线程返回值</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="post-toc-number">9.</span> <span class="post-toc-text">写在最后</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-多线程入门"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">多线程入门</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-10-03 21:12:35" datetime="2020-10-03T13:12:35.938Z"  itemprop="datePublished">2020-10-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/AArdio/">AArdio</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h3><blockquote>
+<p>当你点击EXE文件系统一个应用程序的时候 - 系统会创建一个进程（process）<br>而在一个进程内可以包含多个线程(thread)。用来显示界面的线程，我们通常称为“界面线程”，<br>其他不是用来显示界面的线程，我们一般称为“工作线程”或者是“后台线程”。</p>
+</blockquote>
+<a id="more"></a>
+
+<p>界面线程会使用 <code>win.loopMessage();</code> 启动一个消息循环，<br><code>win.loopMessage();</code>  就象一个快递公司不知疲倦的收发消息，直到用户关闭最后一个窗口他才会退出。<br>当然你也可以使用 <code>win.quitMessage()</code> 退出消息循环。</p>
+<p>下面是一个启动界面线程的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> win.ui;</span><br><span class="line"><span class="comment">/*DSG&#123;&#123;*/</span></span><br><span class="line"><span class="keyword">var</span> winform = win.form(text=<span class="string">&quot;aardio form&quot;</span>;right=<span class="number">759</span>;bottom=<span class="number">469</span>)</span><br><span class="line">winform.add(</span><br><span class="line">    button=&#123;cls=<span class="string">&quot;button&quot;</span>;text=<span class="string">&quot;耗时操作&quot;</span>; ...&#125;</span><br><span class="line">)</span><br><span class="line"><span class="comment">/*&#125;&#125;*/</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//用户点击窗口上的按钮时会触发下面的回调函数</span></span><br><span class="line">winform.button.oncommand = <span class="function"><span class="keyword">function</span>(<span class="params">id,event</span>)</span>&#123;   </span><br><span class="line">    <span class="comment">//下面用sleep函数休眠5秒(5000毫秒)模拟耗时操作</span></span><br><span class="line">    sleep(<span class="number">5000</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">winform.show();</span><br><span class="line">win.loopMessage();</span><br></pre></td></tr></table></figure>
+<p>你可以看到一个窗体显示在屏幕上，如果你去掉代码中的最后一句 <code>win.loopMessage();</code>那么窗体只会显示一下就消失了，你的程序也迅速退出了。</p>
+<p>但如果你加上 <code>win.loopMessage();</code> 窗体就会一直显示在屏幕上（直到你点击关闭按钮）。<br>并且你可以做其他的操作，例如点击按钮。</p>
+<p>我们尝试点击按钮，点击按钮后触发了 <code>winform.button.oncommand()</code> 函数，<br>一件让我们困惑的事发生了，窗体卡死了任何操作都没有反应，这是因为类似 <code>sleep(5000)</code> 这样的耗时操作阻塞了<code>win.loopMessage()</code>启动的消息循环过程。</p>
+<p>一种解决方法是把 <code>sleep(5000)</code>改成 <code>win.delay(5000)</code>，虽然他们同样都是延时函数，但是<code>win.delay()</code>会同时继续处理窗口消息。但如果我们不只是延时还要做其他耗时的操作，那就需要启动一个新的线程。</p>
+<h3 id="创建线程"><a href="#创建线程" class="headerlink" title="创建线程"></a>创建线程</h3><blockquote>
+<p>一个线程会排队执行一系列的编程指令，但一个线程同时只能做一件事。<br>例如在界面上有耗时的操作在执行时 - 就不能同时处理其他的界面消息或者响应用户的操作。<br>这时候我们就要使用多线程来完成我们的任务。</p>
+</blockquote>
+<p>我们假设有一个耗时操作是这样的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下面这个函数执行耗时操作</span></span><br><span class="line">doSomething = <span class="function"><span class="keyword">function</span>(<span class="params"> str </span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;<span class="number">100</span>)&#123;</span><br><span class="line">        str = str + <span class="string">&quot; &quot;</span> + i;</span><br><span class="line">        sleep(<span class="number">100</span>)</span><br><span class="line">    &#125;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> <span class="number">123</span>;</span><br><span class="line">   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一般我们直接调用这个函数会是这样写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">doSomething( <span class="string">&quot;也可以有参数什么的&quot;</span> )</span><br></pre></td></tr></table></figure>
+<p>如果希望写复杂一点调用这个函数，我们也可以这样写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">invoke(doSomething ,,<span class="string">&quot;也可以有参数什么的&quot;</span> )</span><br></pre></td></tr></table></figure>
+<p>如果我们希望创建一个新的线程来调用这个函数，那么就需要下面这样写：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thread.invoke(doSomething ,<span class="string">&quot;也可以有参数什么的&quot;</span> )</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><strong>切记不要犯一个低级错误：</strong><br> 如果把创建线程的代码改为 <code>thread.invoke( doSomething(&quot;也可以有参数什么的&quot;) )</code><br>这是在创建线程前就调用函数了，实际执行的代码是 <code>thread.invoke( 123 )</code> 这肯定会出错的。</p>
+</blockquote>
+<h3 id="线程的规则与限制"><a href="#线程的规则与限制" class="headerlink" title="线程的规则与限制"></a>线程的规则与限制</h3><blockquote>
+<p>线程有独立的运行上下文，独立的变量环境</p>
+</blockquote>
+<p>多线程最让人困惑的是<u>线程间的同步和交互</u>。</p>
+<p>线程就象多个在并列的轨道上疾驰的火车，你要在A火车上与B火车上的人交互，或者你想让B火车上的人干什么，你不能直接从火车上把手伸出去跟别的火车上的人拉拉扯扯发生种种亲密的互动。</p>
+<ul>
+<li>一种方式是先让所有的火车都停下来，互动完了再继续往前开，需要互动的时候再停下来，这通常需要用到线程同步的锁，在aardio中就是<code>thread.lock()</code>，但实际上在aardio中多线程同步很少需要用到同步锁，所以这里我也就不多讲。</li>
+<li>另外一种更先进的方式就是TLS(Thread Local Storage)，也就是<strong>线程局部存储</strong>。<br>一些编程语言的全局变量是多线程共享的，一次修改多个线程中立即生效，这看起来很方便，其实带来的潜在麻烦会很多，会制造大量混乱的BUG。而aardio自带TLS, 所有变量都是线程局部存储。你不能在多线程间直接共享变量。</li>
+</ul>
+<h4 id="交换变量的方法"><a href="#交换变量的方法" class="headerlink" title="交换变量的方法"></a>交换变量的方法</h4><ol>
+<li><p>如果你有一些函数需要被多个线程用到，请他们写到库文件里，然后在任何线程中使用 <code>import</code> 语句导入即可使用。</p>
+</li>
+<li><p>可以在创建线程时，通过线程的启动参数把变量从一个线程传入另一个线程，例如：</p>
+</li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">thread.invoke( 线程启动函数,<span class="string">&quot;给你的&quot;</span>,<span class="string">&quot;这也是给你的&quot;</span>,<span class="string">&quot;如果还想要上车后打我电话&quot;</span> )</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><p>多线程共享的变量，必须通过 <code>thread.get()</code> 函数获取，并使用 <code>thread.set()</code> 函数修改其值，<code>thread.table</code>对象对这两个函数做了进一步的封装（伪装成一个普通的表对象）</p>
+</li>
+<li><p>aardio提供了很多线程间相互调用函数的方法，通过这些调用方式的传参也可以交互变量，具体请查看aardio范例中的多线程范例。</p>
+</li>
+</ol>
+<h4 id="交换变量的规则"><a href="#交换变量的规则" class="headerlink" title="交换变量的规则"></a>交换变量的规则</h4><p>在aardio中每个线程有独立的运行上下文、线程有独立的变量环境，有独立的堆栈，所以你不能把包含局部变量闭包的对象从一个线程传到另一个线程，常见的就是调用类创建的对象，因为this就是闭包变量。</p>
+<p>另外你也不可以在一个线程中引用库文件，并且把引用的库直接传到另一个线程，因为库文件中通常会大量的使用局部变量闭包，而应该在每个线程中自行导入需要用到的库，一个例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line"></span><br><span class="line">thread.invoke(</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;线程要自己调用 import console;&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.pause(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<h3 id="调用窗口对象"><a href="#调用窗口对象" class="headerlink" title="调用窗口对象"></a>调用窗口对象</h3><p>新手可能不太容易理解，aardio中的这种模式给多线程开发带来了巨大的方便，在aardio的多线程代码中基本很少看到同步锁，也很少会因为同步出现各种BUG和麻烦，以前面并列飞奔的多个火车来比喻，在aardio中每辆火车都只要愉快的往前跑就行了，不存在谁停下来等谁同步的问题。</p>
+<p>但不可否认，工作线程中如果能直接操作窗口上的控件那会带来巨大的方便（因为工作线程需要访问界面控件的需求还是非常多的），但这违反了aardio的规则，在aardio的旧版本中这是行不通的，在aardio新版本中，我们愉快的解决了这个问题。现在aardio中可以存在一些特权对象，让一些不能在线程中直接传递的对象可以跨线程传递，例如窗口对象，下面我们看一个例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> win.ui;</span><br><span class="line"><span class="keyword">var</span> winform = win.form(text=<span class="string">&quot;aardio form&quot;</span>;right=<span class="number">759</span>;bottom=<span class="number">469</span>)</span><br><span class="line">winform.add(</span><br><span class="line">    button=&#123;cls=<span class="string">&quot;button&quot;</span>;text=<span class="string">&quot;再来个多线程，可以多点几次不会乱的&quot;</span>; ...&#125;;</span><br><span class="line">    edit=&#123;cls=<span class="string">&quot;edit&quot;</span>;edge=<span class="number">1</span>;multiline=<span class="number">1</span>;z=<span class="number">1</span>; ...&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">winform.button.oncommand = <span class="function"><span class="keyword">function</span>(<span class="params">id,event</span>)</span>&#123;</span><br><span class="line">    thread.invoke(</span><br><span class="line">        <span class="function"><span class="keyword">function</span>(<span class="params">winform</span>)</span>&#123;</span><br><span class="line">            <span class="keyword">for</span>(i=<span class="number">1</span>;<span class="number">10</span>;<span class="number">1</span>)&#123;</span><br><span class="line">                winform.edit.print( time.tick(),<span class="string">&quot;线程ID:&quot;</span>,thread.getId() );</span><br><span class="line">                sleep(<span class="number">1000</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;,winform</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">winform.show()</span><br><span class="line">win.loopMessage();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意上面的线程启动函数直接写在了参数里（匿名函数），跟下面的写法作用是一样的：</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//下面这个函数执行耗时操作</span></span><br><span class="line"><span class="keyword">var</span> doSomething = <span class="function"><span class="keyword">function</span>(<span class="params"> winform </span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;<span class="number">10</span>;<span class="number">1</span>)&#123;</span><br><span class="line">        winform.edit.print( time.tick(),<span class="string">&quot;线程ID:&quot;</span>,thread.getId() );</span><br><span class="line">        sleep(<span class="number">1000</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">thread.invoke( doSomething,winform ) <span class="comment">//启动线程</span></span><br></pre></td></tr></table></figure>
+<h3 id="界面与逻辑分离"><a href="#界面与逻辑分离" class="headerlink" title="界面与逻辑分离"></a>界面与逻辑分离</h3><p>在工作线程中直接操作界面控件固然令人愉快，<br>但如果代码量一大，界面与逻辑混杂在一起，会让代码不必要的变的千头万绪复杂臃肿。</p>
+<p>如果把多线程比作多条轨道上并列飞奔的火车，那么火车交互的方法不仅仅只有停下来同步，或者把手伸出车窗来个最直接的亲密交互。一种更好的方式是拿起手机给隔壁火车上的人打个电话 - 发个消息，或者等待对方操作完了再把消息发回来。</p>
+<p>这种响应式的编程方式在aardio里就是 <code>thead.command</code>，下面我们看一个简单的例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> win.ui;</span><br><span class="line"><span class="keyword">var</span> winform = win.form(text=<span class="string">&quot;线程命令&quot;</span>;right=<span class="number">599</span>;bottom=<span class="number">399</span>)</span><br><span class="line">winform.add(edit=&#123;cls=<span class="string">&quot;edit&quot;</span>; ...&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> thread.command;</span><br><span class="line"><span class="keyword">var</span> listener = thread.command();</span><br><span class="line">listener.print = <span class="function"><span class="keyword">function</span>(<span class="params"> ... </span>)</span>&#123;</span><br><span class="line">    winform.edit.print( ... ) <span class="comment">//我们在界面线程中这样响应工作线程的消息</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">thread.invoke( <span class="comment">//创建工作线程</span></span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">import</span> thread.command; <span class="comment">//必须在线程函数内部导入需要的库</span></span><br><span class="line">        thread.command.print(<span class="string">&quot;hello world&quot;</span>,<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>); <span class="comment">//调用界面线程的命令</span></span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">winform.show();</span><br><span class="line">win.loopMessage();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p> <code>thread.command</code>可以把多线程间复杂的消息交互伪装成普通的函数调用，非常的方便。</p>
+</blockquote>
+<p>这里新手仍然可能会困惑一点：我在工作线程中不是可以直接操作界面控件么？！ 你这个<code>thread.command</code>虽然好用，但是多写了不少代码呀。</p>
+<p>这样去理解是不对的，你开个轮船去对象菜市场买菜固然是有点麻烦，但如果你开轮船去环游世界那你就能感受到它的方便在哪里了。<code>thread.command</code> 一个巨大的优势是让界面与逻辑完全解耦，实现界面与逻辑的完全分离，当你的程序写到后面，代码越来越多，就能感受到这种模式的好处了。</p>
+<p>例如 aardio自带的自动更新模块的使用示例代码：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> fsys.update.dlMgr;</span><br><span class="line"><span class="keyword">var</span> dlMgr = fsys.update.dlMgr(</span><br><span class="line">    <span class="string">&quot;http://update.aardio.com/api/v1/version.txt&quot;</span>,<span class="string">&quot;/download/update-files&quot;</span>)</span><br><span class="line"></span><br><span class="line">dlMgr.onError = <span class="function"><span class="keyword">function</span>(<span class="params">err,filename</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//错误信息 err,错误文件名 filename 这里可以不用做任何处理,因为出错了就是没有升级包了</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dlMgr.onConfirmDownload = <span class="function"><span class="keyword">function</span>(<span class="params">isUpdated,appVersion,latestVersion,description</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">if</span>( ! isUpdated )&#123;</span><br><span class="line">        <span class="comment">//已经是最新版本了</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">//检测到最新版本，版本号 latestVersion</span></span><br><span class="line">    &#125;;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>; <span class="comment">//暂不下载</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">dlMgr.create();</span><br></pre></td></tr></table></figure>
+<p>这个<code>fsys.update.dlMgr</code>里面就用到了多线程，但是他完全不需要直接操作界面控件。<br>而你在界面上使用这个对象的时候，你甚至都完全不用理会他是不是多线程，不会阻塞和卡死界面，有了结果你会收到通知，你接个电话就行了压根不用管他做了什么或者正在做什么。</p>
+<p>这个<code>fsys.update.dlMgr</code>里面就是使用<code>thread.command</code>实现了实现界面与逻辑分离，你可以把检测、下载、更新替换并调整为不同的界面效果，但是<code>fsys.update.dlMgr</code>的代码可以始终复用。</p>
+<h3 id="使用线程句柄"><a href="#使用线程句柄" class="headerlink" title="使用线程句柄"></a>使用线程句柄</h3><p>一般我们可以使用 <code>thread.invoke()</code> 函数简单快捷的创建线程，<br>而 <code>thread.create()</code> 的作用和用法与  <code>thread.invoke()</code> 一样，唯一的区别是 <code>thread.create()</code>会返回线程句柄。</p>
+<p>线程句柄可以用来控制线程（暂停或继续运行等等），<br>如果不再使用线程句柄，应当使用 <code>raw.closehandle()</code> 函数关闭线程句柄（这个操作不会关停线程）</p>
+<p>有了线程句柄，我们可以使用 <code>thread.waitOne()</code> 等待线程执行完毕，<br>而且 <code>thread.waitOne()</code> 还可以一边等待一边处理界面消息（让界面不会卡死）。</p>
+<p>下面看一下aardio范例里的多线程入门示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> thrdHandle = thread.create(</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line">        thread.lock(<span class="string">&quot;写控制台&quot;</span>,<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&quot;线程在执行&quot;</span>,thread.getId() )</span><br><span class="line">        &#125;)</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//这里如果高级点可以用 thread.event来实现信号判断,参考本目录下的定时器范例</span></span><br><span class="line">        <span class="keyword">while</span>(!thread.get(<span class="string">&quot;红灯停&quot;</span>))&#123;</span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&quot;线程在执行&quot;</span>,time() )</span><br><span class="line">            sleep(<span class="number">1000</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;停了!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line">   </span><br><span class="line">thread.suspend(thrdHandle) <span class="comment">//使用线程句柄就可以控制线程,例如下面的函数暂停线程</span></span><br><span class="line">thread.resume(thrdHandle) <span class="comment">//线程恢复运行</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> act = thread.stillActive(thrdHandle) <span class="comment">//线程是否在运行</span></span><br><span class="line"></span><br><span class="line">sleep(<span class="number">3000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//每个线程的全局变量环境都是独立的,而 thread.set() 则用于设置所有线程共享的全局变量。</span></span><br><span class="line">thread.set(<span class="string">&quot;红灯停&quot;</span>, <span class="literal">true</span>)</span><br><span class="line">thread.waitAll(thrdHandle)</span><br><span class="line"></span><br><span class="line"><span class="comment">//句柄不用的时候一定要用下面的函数关闭(切记：句柄是绝对不会自动释放的),关闭句柄并不会关闭线程</span></span><br><span class="line">raw.closehandle(thrdHandle)</span><br><span class="line">thread.invoke(</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;线程在执行&quot;</span>,thread.getId() )   </span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line">sleep(<span class="number">100</span>)</span><br><span class="line"><span class="built_in">console</span>.pause(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+<p>您可以使用 thread.command 在线程间交互通信,请参考<a target="_blank" rel="noopener" href="http://bbs.aardio.com/forum.php?mod=viewthread&tid=13121">《多线程开发入门》</a><br>您还可以使用 thread.event 来实现线程间的同步,请参考<a target="_blank" rel="noopener" href="http://bbs.aardio.com/forum.php?mod=viewthread&tid=11531">《多线程中的交通信号灯：thread.event》</a><br>或者使用 <code>thread.works</code>、<code>thread.manage</code> 这些线程管理器来批量的管理线程句柄,<br>请参考此目录中的其他范例。</p>
+<h3 id="管理多线程"><a href="#管理多线程" class="headerlink" title="管理多线程"></a>管理多线程</h3><p>aardio中提供了 <code>thread.manage</code>，<code>thread.works</code> 等用于管理多个线程的对象，<br>例如标准库中用于实现多线程多任务下载文件的 <code>thread.dlManager</code> 就使用了<code>thread.works</code>管理线程。</p>
+<blockquote>
+<p>thread.works 用于创建多线程任务分派，多个线程执行相同的任务，但可以不停的分派新的任务，</p>
+</blockquote>
+<p>例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line"><span class="keyword">import</span> thread.works;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> works = thread.works( <span class="number">20</span>,</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">...</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line">        </span><br><span class="line">        thread.lock(<span class="string">&quot;写控制台&quot;</span>)</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">&quot;线程ID&quot;</span> + thread.getId(),<span class="string">&quot;,开始工作,接收到任务指令参数&quot;</span>,...)</span><br><span class="line">        thread.unlock(<span class="string">&quot;写控制台&quot;</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;返回值,线程ID&quot;</span> + thread.getId();</span><br><span class="line">    &#125;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">//分派任务</span></span><br><span class="line">works.push(<span class="string">&quot;一个任务&quot;</span>)</span><br><span class="line">works.push(<span class="string">&quot;两个任务&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//等待任务完成</span></span><br><span class="line">works.wait(</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">r</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">&quot;检查成果&quot;</span>, r  )</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">works.push(<span class="string">&quot;三个任务&quot;</span>)</span><br><span class="line">works.push(<span class="string">&quot;四个任务&quot;</span>)</span><br><span class="line">works.push(<span class="string">&quot;五个任务&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//退出程序前,等待任务完成并关闭所有线程</span></span><br><span class="line">works.waitClose(</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">r</span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( <span class="string">&quot;检查成果&quot;</span>, r  )</span><br><span class="line">    &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">execute(<span class="string">&quot;pause&quot;</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>而 <code>thread.manage</code> 可以用来创建多个线程执行多个不同的任务，可以添加任意个线程启动函数，<br>在线程执行完闭以后可以触发<code>onEnd</code>事件，并且把线程函数的返回值取回来，</p>
+</blockquote>
+<p>示例如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line"><span class="keyword">import</span> thread.manage</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建线程管理器</span></span><br><span class="line">manage = thread.manage(<span class="number">3</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> thrdFunc = <span class="function"><span class="keyword">function</span>(<span class="params">name</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">import</span> win;</span><br><span class="line">    <span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line">   </span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">1</span>;<span class="number">10</span>;<span class="number">1</span>)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log( thread.getId(),name )</span><br><span class="line">        <span class="keyword">if</span>( !win.delay(<span class="number">1000</span>) )&#123; <span class="comment">//主线程可以用 manage.quitMessage()中断这个循环</span></span><br><span class="line">            <span class="built_in">console</span>.log(<span class="string">&quot;收到退出指令&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">67</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">manage.create(thrdFunc,<span class="string">&quot;线程1&quot;</span>).onEnd = <span class="function"><span class="keyword">function</span>(<span class="params">...</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;线程1的回调&quot;</span>,...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">manage.createLite(thrdFunc,<span class="string">&quot;线程2&quot;</span>).onEnd = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&quot;线程2的回调&quot;</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">manage.create(thrdFunc,<span class="string">&quot;线程3&quot;</span>)</span><br><span class="line"></span><br><span class="line">manage.waitClose()</span><br><span class="line"><span class="built_in">console</span>.pause();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>thread.manage</code>通常是用于界面线程里管理工作线程，上面为了简化代码仅仅用到了控制台。</p>
+</blockquote>
+<h3 id="获取线程返回值"><a href="#获取线程返回值" class="headerlink" title="获取线程返回值"></a>获取线程返回值</h3><p>我们有时候在界面中创建一个线程，仅仅是为了让界面不卡顿，我们希望用 <code>thead.waitOne()</code> 阻塞等待线程执行完闭（界面线程同时可以响应消息），然后我们又希望在后面关闭线程句柄，并获取到线程最后返回的值。</p>
+<p>可能我们希望一切尽可能的简单，尽可能的少写代码，并且也不想用到<code>thread.manage</code>（因为并不需要管理多个线程）。</p>
+<p>这时候我们可以使用 <code>win.invoke</code>，<br><code>win.invoke</code> 的参数和用法与 <code>thread.invoke</code>完全一样，<br>区别是 <code>win.invoke</code> 会阻塞并等待线程执行完毕，并关闭线程句柄，同时获取到线程函数的返回值。</p>
+<p>示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> win.ui;</span><br><span class="line"><span class="keyword">var</span> winform = win.form(text=<span class="string">&quot;aardio form&quot;</span>;right=<span class="number">759</span>;bottom=<span class="number">469</span>)</span><br><span class="line">winform.add(</span><br><span class="line">    button=&#123;cls=<span class="string">&quot;button&quot;</span>;text=<span class="string">&quot;读取网页&quot;</span>;z=<span class="number">1</span>; ...&#125;;</span><br><span class="line">    edit=&#123;cls=<span class="string">&quot;edit&quot;</span>;text=<span class="string">&quot;edit&quot;</span>;edge=<span class="number">1</span>;multiline=<span class="number">1</span>;z=<span class="number">2</span>; ...&#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">winform.button.oncommand = <span class="function"><span class="keyword">function</span>(<span class="params">id,event</span>)</span>&#123;</span><br><span class="line">    winform.edit.text = win.invoke(</span><br><span class="line">        <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            <span class="keyword">import</span> inet.http;</span><br><span class="line">            sleep(<span class="number">3000</span>);<span class="comment">//暂停模拟一个耗时的操作</span></span><br><span class="line">            <span class="keyword">return</span> inet.http().get(<span class="string">&quot;http://www.aardio.com&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    )</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">winform.show()</span><br><span class="line">win.loopMessage();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>代码运行测试一下，在线程执行完以前，你仍然可以流畅的拖动窗口，操作界面。</p>
+</blockquote>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><blockquote>
+<p>重视范例，才能开箱即用！</p>
+</blockquote>
+<p>教程中用到的多线程直接调用窗口对象的功能 - 需要更新到新版 aardio才能支持。<br>更多关于多线程的功能请大家看aardio范例和文档。</p>
+<p>一些用户可能不明白 aardio怎样才能真正的“开箱即用”，我接触到的一些用户拿起aardio就可以直接使用，写出非常好的程序而且速度很快，他们高兴的表示aardio简洁轻巧不用特别的学习直接就可以使用，而另外一些却始终在犹豫，在到处找教程、找文档，始终找不到方法，每前进一步都要求你准备一大堆的说明书才敢向前迈一步，实际上我发现他们换其他编程工具也是类似的结果（ 可能有极少数学步车式的开发工具他们会适应 ）。</p>
+<p>我也跟那些上手比较快的用户聊过一些，发现他们都有一个共同的习惯就是非常重视范例，<br>因为 aardio的范例非常、非常的多，而且aardio范例跟其他语言都有一些不同，很多代码就是几句代码就是一个简单而完整的程序，我经常听到一些人跟我说，仅仅是复制一些范例整合到一起，做一些修改就可以做出软件。</p>
+<blockquote>
+<p>所以请记住：教程写的再多，看的再多，始终是纸上谈兵。</p>
+</blockquote>
+<p>搞培训的人很愉快因为能赚到钱，而参加培训的人也很愉快因为找到了心理安慰剂，但真正能让你学会编程的是多看范例，多跑代码，多动手写代码！</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-10T18:13:35.020Z" itemprop="dateUpdated">2020-09-11 02:13:35</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/posts/1014/" target="_blank" rel="external">http://suiang.cn/posts/1014/</a>
+        
+    </div>
+    <footer>
+        <a href="http://suiang.cn">
+            <img src="/img/avatar.jpg" alt="苏扬">
+            苏扬
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AArdio/" rel="tag">AArdio</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://suiang.cn/posts/1014/&title=《多线程入门》 — MY+&pic=http://suiang.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://suiang.cn/posts/1014/&title=《多线程入门》 — MY+&source=背景
+当你点击EXE文件系统一个应用程序的时候 - 系统会创建一个进程（process）而在一个进程内可以包含多个线程(thread)。用来显示界面的线程..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://suiang.cn/posts/1014/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《多线程入门》 — MY+&url=http://suiang.cn/posts/1014/&via=http://suiang.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://suiang.cn/posts/1014/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/48288/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">AArdio 调用Go语言</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/11315/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">使用 web.rest 调用 REST API</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>苏扬 &copy; 2015 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://suiang.cn/posts/1014/&title=《多线程入门》 — MY+&pic=http://suiang.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://suiang.cn/posts/1014/&title=《多线程入门》 — MY+&source=背景
+当你点击EXE文件系统一个应用程序的时候 - 系统会创建一个进程（process）而在一个进程内可以包含多个线程(thread)。用来显示界面的线程..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://suiang.cn/posts/1014/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《多线程入门》 — MY+&url=http://suiang.cn/posts/1014/&via=http://suiang.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://suiang.cn/posts/1014/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://suiang.cn/posts/1014/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.17"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.17" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

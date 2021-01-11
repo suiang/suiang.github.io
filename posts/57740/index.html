@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    <link rel="canonical" href="http://suiang.cn/posts/57740/">
+    
+    
+    <title>Chrome 系列范例 | MY+ | 子非鱼，安知鱼之乐！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="AArdio,Chrome,WebDriver">
+    <meta name="description" content="大家知道Chrome每个版本的适用ChromeDriver版本都不一样，安装不同的Chrome就要去下载不同的ChromeDriver.exe，而且还要命令行启动，绑定固定端口一搞不好还会跟别的进程冲突了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Chrome 系列范例">
+<meta property="og:url" content="http://suiang.cn/posts/57740/index.html">
+<meta property="og:site_name" content="MY+">
+<meta property="og:description" content="大家知道Chrome每个版本的适用ChromeDriver版本都不一样，安装不同的Chrome就要去下载不同的ChromeDriver.exe，而且还要命令行启动，绑定固定端口一搞不好还会跟别的进程冲突了。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-10-03T13:12:35.543Z">
+<meta property="article:modified_time" content="2020-09-10T16:59:13.902Z">
+<meta property="article:author" content="苏扬">
+<meta property="article:tag" content="AArdio">
+<meta property="article:tag" content="Chrome">
+<meta property="article:tag" content="WebDriver">
+<meta name="twitter:card" content="summary">
+    
+        <link rel="alternate" type="application/atom+xml" title="MY+" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.17">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">苏扬</h5>
+          <a href="mailto:xautop@gmail.com" title="xautop@gmail.com" class="mail">xautop@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aardio"  >
+                <i class="icon icon-lg icon-file-code-o"></i>
+                扩展
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aardio/code"  >
+                <i class="icon icon-lg icon-code"></i>
+                代码
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yscoder/hexo-theme-indigo/wiki" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                链接
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Chrome 系列范例</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Chrome 系列范例</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2020-10-03T13:12:35.543Z" itemprop="datePublished" class="page-time">
+  2020-10-03
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/AArdio/">AArdio</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%B0%83%E7%94%A8-Electron"><span class="post-toc-number">1.</span> <span class="post-toc-text">调用 Electron</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E4%BF%AE%E6%94%B9-User-Agent"><span class="post-toc-number">2.</span> <span class="post-toc-text">修改 User Agent</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%BB%A3%E7%90%86"><span class="post-toc-number">3.</span> <span class="post-toc-text">设置代理</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%96%B0%E7%89%88%E5%8A%9F%E8%83%BD"><span class="post-toc-number">4.</span> <span class="post-toc-text">新版功能</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E9%9A%90%E8%97%8F%E6%8E%A7%E5%88%B6%E5%8F%B0"><span class="post-toc-number">5.</span> <span class="post-toc-text">隐藏控制台</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#app%E3%80%81driver-%E4%BA%A4%E4%BA%92"><span class="post-toc-number">6.</span> <span class="post-toc-text">app、driver 交互</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E7%A6%81%E7%94%A8%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95%E6%8F%90%E7%A4%BA"><span class="post-toc-number">7.</span> <span class="post-toc-text">禁用自动化测试提示</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#%E6%B8%85%E7%90%86%E4%B8%B4%E6%97%B6%E6%96%87%E4%BB%B6"><span class="post-toc-number">8.</span> <span class="post-toc-text">清理临时文件</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Chrome 系列范例"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Chrome 系列范例</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2020-10-03 21:12:35" datetime="2020-10-03T13:12:35.543Z"  itemprop="datePublished">2020-10-03</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/AArdio/">AArdio</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>大家知道Chrome每个版本的适用ChromeDriver版本都不一样，<br>安装不同的Chrome就要去下载不同的ChromeDriver.exe，而且还要命令行启动，绑定固定端口一搞不好还会跟别的进程冲突了。</p>
+<a id="more"></a>
+
+<p>现在用aardio 最新版中提供的 chrome.driver 所有麻烦都可以解决了，<br>chrome.driver 会自动查找Chrome的安装位置、版本号，自动匹配最合适的ChromeDriver版本，并且负责自动下载安装，自动分配空闲端口，所有事情全自动准备好，只要运行下面的代码就可以了。  </p>
+<p>现在看代码，用法非常简单:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//WebDriver自动化</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> chrome.driver;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建chromeDriver对象</span></span><br><span class="line"><span class="comment">//协议文档 https://github.com/SeleniumHQ/selenium/wiki/JsonWireProtocol</span></span><br><span class="line"><span class="keyword">var</span> driver = chrome.driver();</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建会话，打开chrome浏览器，Chrome新版会强制显示控制台</span></span><br><span class="line"><span class="keyword">var</span> browser = driver.startBrowser();</span><br><span class="line"></span><br><span class="line"><span class="comment">//打开网页</span></span><br><span class="line">browser.go(<span class="string">&quot;http://www.so.com&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//查找文本输入框</span></span><br><span class="line"><span class="keyword">var</span> ele = browser.querySelector(<span class="string">&quot;#input&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//在网页输入框输入内容</span></span><br><span class="line">ele.setValue( <span class="string">&quot;ChromeDriver&quot;</span> )</span><br><span class="line"></span><br><span class="line"><span class="comment">//模拟点击按钮</span></span><br><span class="line">browser.querySelector(<span class="string">&quot;#search-button&quot;</span>).click();</span><br></pre></td></tr></table></figure>
+<p>下面的问题在新版中已解决，可忽略：</p>
+<blockquote>
+<p>注意 Chrome新版会强制显示控制台（ 隐藏也会强行弹出黑窗口，旧版可以隐藏这个黑窗口 ），</p>
+<p>如果想隐藏黑窗口，那么可以用旧版Chrome，在创建 chrome.driver对象时可以在参数中自定义chrome.exe的路径。</p>
+</blockquote>
+<h2 id="调用-Electron"><a href="#调用-Electron" class="headerlink" title="调用 Electron"></a>调用 Electron</h2><p>也可以通过 ChromeDriver 调用 Electron，几句代码就可以了：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> electron.driver;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建chromeDriver对象,协议文档</span></span><br><span class="line"><span class="keyword">var</span> driver = electron.driver();</span><br><span class="line"></span><br><span class="line"><span class="comment">//替换electron默认的开始页</span></span><br><span class="line">driver.addArguments(<span class="string">&quot;--app=http://www.so.com&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建会话，打开chrome浏览器，Chrome新版会强制显示控制台</span></span><br><span class="line"><span class="keyword">var</span> browser = driver.startBrowser();</span><br><span class="line"></span><br><span class="line"><span class="comment">//打开网页</span></span><br><span class="line"><span class="comment">//browser.go(&quot;http://www.so.com&quot;)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//查找文本输入框</span></span><br><span class="line"><span class="keyword">var</span> ele = browser.querySelector(<span class="string">&quot;#input&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//在网页输入框输入内容</span></span><br><span class="line">ele.setValue( <span class="string">&quot;ChromeDriver&quot;</span> )</span><br><span class="line"></span><br><span class="line"><span class="comment">//模拟点击按钮</span></span><br><span class="line">browser.querySelector(<span class="string">&quot;#search-button&quot;</span>).click();</span><br></pre></td></tr></table></figure>
+<h2 id="修改-User-Agent"><a href="#修改-User-Agent" class="headerlink" title="修改 User Agent"></a>修改 User Agent</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chrome.driver;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> driver = chrome.driver();</span><br><span class="line"></span><br><span class="line">driver.addArguments(<span class="string">&quot;--user-agent=mychrome&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//打开网页</span></span><br><span class="line">driver.startBrowser().go(<span class="string">&quot;http://www.ip138.com/useragent/&quot;</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://peter.sh/experiments/chromium-command-line-switches/">chrome启动参数大全：</a></p>
+</blockquote>
+<h2 id="设置代理"><a href="#设置代理" class="headerlink" title="设置代理"></a>设置代理</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chrome.driver;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> driver = chrome.driver();</span><br><span class="line"></span><br><span class="line">driver.setProxy(</span><br><span class="line">    proxyType = <span class="string">&quot;manual&quot;</span>;</span><br><span class="line">    httpProxy = <span class="string">&quot;127.0.0.1:12043&quot;</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>也可以下面这样写:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chrome.driver;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> driver = chrome.driver();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> browser = driver.startBrowser(</span><br><span class="line">    proxy =&#123;</span><br><span class="line">        proxyType = <span class="string">&quot;manual&quot;</span>;</span><br><span class="line">        httpProxy = <span class="string">&quot;127.0.0.1:12043&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="新版功能"><a href="#新版功能" class="headerlink" title="新版功能"></a>新版功能</h2><p>chrome.driver新版功能演示，操作chrome就像直接执行Javascript函数那么简单</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chrome.driver;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> driver = chrome.driver();</span><br><span class="line"></span><br><span class="line"><span class="comment">//启动浏览器</span></span><br><span class="line">browser = driver.startBrowser();</span><br><span class="line"></span><br><span class="line"><span class="comment">//打开网页</span></span><br><span class="line">browser.go(<span class="string">&quot;http://www.so.com&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//查询元素,并且使用元素的querySelector函数查询子元素</span></span><br><span class="line">browser.querySelector(<span class="string">&quot;body&quot;</span>).querySelector(<span class="string">&quot;#input&quot;</span>).setValue( <span class="string">&quot;ChromeDriver&quot;</span> )</span><br><span class="line"></span><br><span class="line"><span class="comment">//模拟点击按钮</span></span><br><span class="line">browser.querySelector(<span class="string">&quot;#search-button&quot;</span>).click()</span><br></pre></td></tr></table></figure>
+<h2 id="隐藏控制台"><a href="#隐藏控制台" class="headerlink" title="隐藏控制台"></a>隐藏控制台</h2><p>网上一些讨论认为这个问题无解，WebDriver也没有找到相关参数，<br>直觉这个可能在启动参数里打开控制台，于是我写了一个假的 chrome.exe，再用 ChromeDriver.exe 调用他，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line"><span class="keyword">import</span> win.clip</span><br><span class="line"></span><br><span class="line">win.clip.write(_CMDLINE)</span><br><span class="line"><span class="built_in">console</span>.log(_CMDLINE);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.pause();</span><br></pre></td></tr></table></figure>
+<p>chrome.exe获得的启动参数如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--disable-background-networking --disable-client-side-phishing-detection --disable-default-apps --disable-hang-monitor --disable-popup-blocking --disable-prompt-on-repost --disable-sync --disable-web-resources --enable-automation --enable-logging --force-fieldtrials&#x3D;SiteIsolationExtensions&#x2F;Control --ignore-certificate-errors --load-extension&#x3D;&quot;C:\Users\***\AppData\Local\Temp\***\internal&quot; --log-level&#x3D;0 --metrics-recording-only --no-first-run --password-store&#x3D;basic --remote-debugging-port&#x3D;0 --test-type&#x3D;webdriver --use-mock-keychain --user-data-dir&#x3D;&quot;C:\Users\***\AppData\Local\Temp\***&quot; data:,</span><br></pre></td></tr></table></figure>
+<p>我们看到可疑参数<code>--enable-logging</code>，<br>进一步测试发现：排除这个参数就可以关闭新版chrome启动跳出来的控制台窗口了，示例代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chrome.driver;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> driver = chrome.driver( );</span><br><span class="line">driver.setOptions(</span><br><span class="line">    excludeSwitches =&#123;<span class="string">&quot;enable-logging&quot;</span>&#125; <span class="comment">//注意这里参数前千万不要加 --</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">driver.addArguments(<span class="string">&quot;--app=http://www.aardio.com&quot;</span>)</span><br><span class="line"><span class="keyword">var</span> browser = driver.startBrowser();</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>已更新 chrome.driver 默认禁用控制台窗口，</p>
+<p>但仍然可以使用 <code>driver.addArguments(&quot;--enable-logging&quot;)</code> 启用这个参数。</p>
+</blockquote>
+<h2 id="app、driver-交互"><a href="#app、driver-交互" class="headerlink" title="app、driver 交互"></a>app、driver 交互</h2><p>aardio新版经过大力改进，<br>现在 chrome.app, chrome.driver 已经可以相互结合使用，chrome与aardio交互更加简单方便。<br>下面是一个简单的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chrome.app;</span><br><span class="line"><span class="keyword">var</span> app = chrome.app();</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> chrome.driver;</span><br><span class="line"><span class="keyword">var</span> driver = chrome.driver();</span><br><span class="line"></span><br><span class="line"><span class="comment">//指定允许chrome中使用JS直接调用的函数</span></span><br><span class="line">app.external = &#123;</span><br><span class="line"></span><br><span class="line">    test = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">       app.msgbox(<span class="string">&quot;页面js调用了aardio函数&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//正式的启动chrome进程</span></span><br><span class="line">app.start(<span class="string">&quot;http://www.aardio.com&quot;</span>,<span class="function"><span class="keyword">function</span>(<span class="params">args</span>)</span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">//启动浏览器，加载aardio.js，并打开ChromeDriver自动化接口</span></span><br><span class="line">    <span class="keyword">var</span> browser = driver.startAppBrowser(app,args);</span><br><span class="line"></span><br><span class="line">    <span class="comment">//执行JS脚本</span></span><br><span class="line">    browser.doScript(<span class="string">`</span></span><br><span class="line"><span class="string">        document.addEventListener(&quot;click&quot;, function(event) &#123;</span></span><br><span class="line"><span class="string">            aardio.test();</span></span><br><span class="line"><span class="string">        &#125;);</span></span><br><span class="line"><span class="string">    `</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> browser;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">win.loopMessage();</span><br></pre></td></tr></table></figure>
+<h2 id="禁用自动化测试提示"><a href="#禁用自动化测试提示" class="headerlink" title="禁用自动化测试提示"></a>禁用自动化测试提示</h2><p>方法一：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chrome.driver;</span><br><span class="line"><span class="keyword">var</span> driver = chrome.driver();</span><br><span class="line">driver.removeArguments(<span class="string">&quot;--enable-automation&quot;</span>)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>虽然不显示上面的提示了，但是弹出一个更大的警告。</p>
+</blockquote>
+<p>方法二：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chrome.driver;</span><br><span class="line"><span class="keyword">var</span> driver = chrome.driver();</span><br><span class="line">driver.addArguments(<span class="string">&quot;--disable-infobars&quot;</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>不显示上面的提示，也没有警告了，但是可以看到提示框显示然后快速的关掉，会闪烁一下。</p>
+</blockquote>
+<p>方法三:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chrome.driver;</span><br><span class="line"><span class="keyword">var</span> driver = chrome.driver();</span><br><span class="line">driver.addArguments(<span class="string">&quot;--app=http://www.so.com/index.html&quot;</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>用–app模式的方法完美，地址栏、提示框、警告都去掉了，</p>
+<p>但是有一个奇怪的事情是，启动网址要写成 <a target="_blank" rel="noopener" href="http://www.so.com/index.html">http://www.so.com/index.html</a> 这样，如果不写 index.html 有时候会白屏，但不是每个网站都这样。</p>
+</blockquote>
+<h2 id="清理临时文件"><a href="#清理临时文件" class="headerlink" title="清理临时文件"></a>清理临时文件</h2><p>Chrome每个进程只能绑定单独的用户目录 - 才能创建单独的远程调试端口，<br>ChromeDriver 的办法是每次都创建一个临时的用户目录，然后每次都创建新的临时用户目录，而且又不负责删除（其实可以设置为重启系统自动删除，不知道Chrome为什么没有这么做），所以我们只好自己清理了，代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line"><span class="keyword">import</span> fsys;</span><br><span class="line">fsys.enum( fsys.getTempDir(), <span class="string">&quot;scoped_dir*_*&quot;</span>,</span><br><span class="line">    <span class="function"><span class="keyword">function</span>(<span class="params">dir,filename,fullpath,findData</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">if</span>(!filename)&#123;</span><br><span class="line">            <span class="keyword">if</span>( ..io.exist( io.joinpath(fullpath,<span class="string">&quot;DevToolsActivePort&quot;</span>) ) )&#123;</span><br><span class="line">                fsys.delete(fullpath)</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>( ..io.exist( io.joinpath(fullpath,<span class="string">&quot;internal.zip&quot;</span>) ) )&#123;</span><br><span class="line">                fsys.delete(fullpath)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,<span class="literal">false</span></span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.pause(<span class="literal">true</span>);</span><br></pre></td></tr></table></figure>
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2020-09-10T16:59:13.902Z" itemprop="dateUpdated">2020-09-11 00:59:13</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/posts/57740/" target="_blank" rel="external">http://suiang.cn/posts/57740/</a>
+        
+    </div>
+    <footer>
+        <a href="http://suiang.cn">
+            <img src="/img/avatar.jpg" alt="苏扬">
+            苏扬
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AArdio/" rel="tag">AArdio</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Chrome/" rel="tag">Chrome</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebDriver/" rel="tag">WebDriver</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://suiang.cn/posts/57740/&title=《Chrome 系列范例》 — MY+&pic=http://suiang.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://suiang.cn/posts/57740/&title=《Chrome 系列范例》 — MY+&source=大家知道Chrome每个版本的适用ChromeDriver版本都不一样，安装不同的Chrome就要去下载不同的ChromeDriver.exe，而且还要命..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://suiang.cn/posts/57740/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Chrome 系列范例》 — MY+&url=http://suiang.cn/posts/57740/&via=http://suiang.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://suiang.cn/posts/57740/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/posts/32886/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">CSS 灵活的流(Flow)布局</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/214/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">AArdio 简单服务器示例</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license noopener" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>苏扬 &copy; 2015 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://suiang.cn/posts/57740/&title=《Chrome 系列范例》 — MY+&pic=http://suiang.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://suiang.cn/posts/57740/&title=《Chrome 系列范例》 — MY+&source=大家知道Chrome每个版本的适用ChromeDriver版本都不一样，安装不同的Chrome就要去下载不同的ChromeDriver.exe，而且还要命..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://suiang.cn/posts/57740/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Chrome 系列范例》 — MY+&url=http://suiang.cn/posts/57740/&via=http://suiang.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://suiang.cn/posts/57740/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://suiang.cn/posts/57740/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.17"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.17" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
