@@ -12,8 +12,6 @@
     <meta charset="utf-8">
     
     
-    <link rel="canonical" href="http://suiang.cn/posts/40698/">
-    
     
     <title>Typora 自定义命令上传图片 | MY+ | 子非鱼，安知鱼之乐！</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -41,7 +39,7 @@
         <link rel="alternate" type="application/atom+xml" title="MY+" href="/atom.xml">
     
     <link rel="shortcut icon" href="/img/favicon.ico">
-    <link rel="stylesheet" href="/css/style.css?v=1.6.17">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
     <script>window.lazyScripts=[]</script>
 
     <!-- custom head -->
@@ -226,11 +224,23 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Upload Success:</span><br><span class="line">https:<span class="comment">//sample.com/1.jpg</span></span><br><span class="line">https:<span class="comment">//sample.com/2.jpg</span></span><br></pre></td></tr></table></figure>
 <p>这里，我使用bat脚本，事实上，你可以使用任何变成语言，上传图片至任意的平台。只要你脚本处理好传入的参数，上传完所有图片，最终的输出结果是上面的格式即可。</p>
 <h3 id="偏好设置"><a href="#偏好设置" class="headerlink" title="偏好设置"></a>偏好设置</h3><p>Typora上传脚本支持的自定义命令，可以在偏好设置中选择。上传服务选择<code>Custom Command</code>，自定义命令就是我们插入图片后，Typora调用的命令。如刚才我们的脚本名称为<code>upload.cmd</code>，自定义命令就可以设为<code>upload</code>，注意替换<code>upload</code>的路径为绝对路径。</p>
-<p><img src="https://img.vim-cn.com/b7/8ed707df5626286d7bc8cbc6223cbcf8b20e8c.png" alt="偏好设置"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.vim-cn.com/b7/8ed707df5626286d7bc8cbc6223cbcf8b20e8c.png" alt="偏好设置" title="">
+                </div>
+                <div class="image-caption">偏好设置</div>
+            </figure>
 <h3 id="测试是否正常"><a href="#测试是否正常" class="headerlink" title="测试是否正常"></a>测试是否正常</h3><blockquote>
 <p>完成脚本和偏好设置后，就可以测试脚本是否正常了。打开偏好设置，直接点击<code>验证图片上传选项</code>。</p>
 </blockquote>
-<p><img src="https://img.vim-cn.com/57/0e459bec95d1a22600da013d1fc1fab2f252f4.png" alt="验证图片"></p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://img.vim-cn.com/57/0e459bec95d1a22600da013d1fc1fab2f252f4.png" alt="验证图片" title="">
+                </div>
+                <div class="image-caption">验证图片</div>
+            </figure>
 <h3 id="尾巴"><a href="#尾巴" class="headerlink" title="尾巴"></a>尾巴</h3><p>市面上确实有很多功能丰富的Markdown编辑器，但所见即所得、小巧轻量的Typora依然是我最喜欢的。图片上传功能的加入，极大方便了写作的过程，想想之前，写文章需要手动将图片拖到图床APP，再把URL复制到文章中，就两个字，“繁琐”。</p>
 <p>最后，用Typora写作，自定义命令上传图片，自己写一个脚本，四行代码，卸载掉各种图床工具，插入图片直接<code>command + v</code>，写作原本就该这么简单嘛！&copy; </p>
 
@@ -434,7 +444,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 
 </script>
 
-<script src="/js/main.min.js?v=1.6.17"></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
 
 
 <div class="search-panel" id="search-panel">
@@ -454,7 +464,7 @@ var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
 </li>
 </template>
 
-<script src="/js/search.min.js?v=1.6.17" async></script>
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
 
 
 
