@@ -39,7 +39,7 @@
 <meta property="og:image" content="https://incomparable9527.coding.net/p/imageBed/d/imageBed/git/raw/master/1ad8b63cfc853ec671c225f05104095a1f152d6e65e5e708fdc5f543b8e194f1.png">
 <meta property="og:image" content="https://incomparable9527.coding.net/p/imageBed/d/imageBed/git/raw/master/a83750a83a4706902b6330abc2b6b72e625dbb55441b30836e476289bd35d4aa.png">
 <meta property="og:image" content="https://incomparable9527.coding.net/p/imageBed/d/imageBed/git/raw/master/66327173c4e0588102c4953bd8023768b9c21ccf3f42848f558e4acaa7edd7eb.png">
-<meta property="og:updated_time" content="2021-01-13T15:06:20.522Z">
+<meta property="og:updated_time" content="2021-01-13T15:13:56.133Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="计算机的源头二进制">
 <meta name="twitter:description" content="计算机的起源是数学中的二进制计数法">
@@ -228,7 +228,7 @@
 <p>将数值转换为字符串的<code>tostring()</code>函数，以及将字符串转换为数值的<code>tonumber()</code>函数，都可选使用第二个参数指定应用于转换的进制(2到36之间).</p>
 <h2 id="计算机为什么使用二进制？"><a href="#计算机为什么使用二进制？" class="headerlink" title="计算机为什么使用二进制？"></a>计算机为什么使用二进制？</h2><p>组成计算机系统的逻辑电路通常只有两个状态，即开关的接通与断开。</p>
 <h2 id="二进制的位操作"><a href="#二进制的位操作" class="headerlink" title="二进制的位操作"></a>二进制的位操作</h2><h3 id="向左移位"><a href="#向左移位" class="headerlink" title="向左移位"></a>向左移位</h3><p>二进制 110101 向左移一位，就是在末尾添加一位 0，因此 110101 就变成了 1101010</p>
-<p><img src="https://incomparable9527.coding.net/p/imageBed/d/imageBed/git/raw/master/0145c13e717d6c03fe7cce4710684fc603d232ee67c68acbf28adcb97607e0ff.png" alt="图 9" style="zoom:33%;"> </p>
+<p><img src="https://incomparable9527.coding.net/p/imageBed/d/imageBed/git/raw/master/0145c13e717d6c03fe7cce4710684fc603d232ee67c68acbf28adcb97607e0ff.png" alt="图 9" style="zoom: 33%;"> </p>
 <p>如果将 1101010 换算为十进制，就是 106，你有没有发现，106 正好是 53 的 2 倍 &gt; 二进制左移一位，其实就是将数字翻倍。</p>
 <h4 id="数字溢出"><a href="#数字溢出" class="headerlink" title="数字溢出"></a>数字溢出</h4><p>所谓数字溢出，就是二进制数的位数超过了系统所指定的位数。目前主流的系统都支持至少 32 位的整型数字</p>
 <h3 id="向右移位"><a href="#向右移位" class="headerlink" title="向右移位"></a>向右移位</h3><p>二进制 110101 向右移一位，就是去除末尾的那一位，因此 110101 就变成了 11010</p>
@@ -265,7 +265,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2021-01-13T15:06:20.522Z" itemprop="dateUpdated">2021-01-13 23:06:20</time>
+    最后更新时间：<time datetime="2021-01-13T15:13:56.133Z" itemprop="dateUpdated">2021-01-13 23:13:56</time>
 </span><br>
 
 
@@ -357,43 +357,6 @@
 
 
     
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Valine Comments -->
-    <div class="comments vcomment" id="comments"></div>
-    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-    <script src="//unpkg.com/valine@latest/dist/Valine.min.js"></script>
-    <!-- Valine Comments script -->
-    <script>
-        var GUEST_INFO = ['nick','mail','link'];
-        var guest_info = 'nick,mail,link'.split(',').filter(function(item){
-          return GUEST_INFO.indexOf(item) > -1
-        });
-        new Valine({
-            el: '#comments',
-            notify: 'false' == 'true',
-            verify: 'false' == 'true',
-            appId: "Q2NGv3ySBqM0RdeQgVXRQP3h-gzGzoHsz",
-            appKey: "MG2RXiKmvuN8QUHSJqFlTzHQ",
-            avatar: "retro",
-            placeholder: "Just go go",
-            guest_info: guest_info.length == 0 ? GUEST_INFO : guest_info,
-            pageSize: "10"
-        })
-    </script>
-    <!-- Valine Comments end -->
-
-
-
 
 </article>
 
