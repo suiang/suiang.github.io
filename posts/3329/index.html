@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Preact Hooks | MY+ | 子非鱼，安知鱼之乐！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Hooks">
+    <meta name="description" content="Hooks 是一个新的概念，它允许你组成状态和副作用。它们允许你在组件之间重用有状态逻辑。">
+<meta name="keywords" content="Hooks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Preact Hooks">
+<meta property="og:url" content="http://suiang.cn/posts/3329/index.html">
+<meta property="og:site_name" content="MY+">
+<meta property="og:description" content="Hooks 是一个新的概念，它允许你组成状态和副作用。它们允许你在组件之间重用有状态逻辑。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2021-01-19T15:51:08.616Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Preact Hooks">
+<meta name="twitter:description" content="Hooks 是一个新的概念，它允许你组成状态和副作用。它们允许你在组件之间重用有状态逻辑。">
+    
+        <link rel="alternate" type="application/atom+xml" title="MY+" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.7.0">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">苏扬</h5>
+          <a href="mailto:xautop@gmail.com" title="xautop@gmail.com" class="mail">xautop@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aardio"  >
+                <i class="icon icon-lg icon-code-fork"></i>
+                扩展
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/aardio/code"  >
+                <i class="icon icon-lg icon-code"></i>
+                代码
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/yscoder/hexo-theme-indigo/wiki" target="_blank" >
+                <i class="icon icon-lg icon-link"></i>
+                链接
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Preact Hooks</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Preact Hooks</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2021-01-19T15:42:46.000Z" itemprop="datePublished" class="page-time">
+  2021-01-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/React/">React</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#简介"><span class="post-toc-number">1.</span> <span class="post-toc-text">简介</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#依赖性参数"><span class="post-toc-number">2.</span> <span class="post-toc-text">依赖性参数</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#有状态钩子"><span class="post-toc-number">3.</span> <span class="post-toc-text">有状态钩子</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#useState"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">useState</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#useReducer"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">useReducer</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#记忆化"><span class="post-toc-number">4.</span> <span class="post-toc-text">记忆化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#useMemo"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">useMemo</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#useCallback"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">useCallback</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用引用"><span class="post-toc-number">5.</span> <span class="post-toc-text">使用引用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#使用上下文"><span class="post-toc-number">6.</span> <span class="post-toc-text">使用上下文</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#副作用"><span class="post-toc-number">7.</span> <span class="post-toc-text">副作用</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#useEffect"><span class="post-toc-number">7.1.</span> <span class="post-toc-text">useEffect</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#useLayoutEffect"><span class="post-toc-number">7.2.</span> <span class="post-toc-text">useLayoutEffect</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#useErrorBoundary"><span class="post-toc-number">7.3.</span> <span class="post-toc-text">useErrorBoundary</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Preact-Hooks"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Preact Hooks</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2021-01-19 23:42:46" datetime="2021-01-19T15:42:46.000Z"  itemprop="datePublished">2021-01-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/React/">React</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>Hooks</code> 是一个新的概念，它允许你组成状态和副作用。它们允许你在组件之间重用有状态逻辑。</p>
+<a id="more"></a>
+<blockquote>
+<p><code>Hooks</code> 是一个新的概念，它允许你组成状态和副作用。它们允许你在组件之间重用有状态逻辑。</p>
+</blockquote>
+<p>如果你已经使用 <code>Preact</code>工作了一段时间，你可能会熟悉 <code>render props</code>和<code>higher order components</code>等模式，这些模式试图解决这些挑战。这些解决方案往往会使代码更难遵循，更抽象。钩子API 使得整齐地提取状态和副作用的逻辑成为可能，同时也简化了独立于依赖该逻辑的组件的单元测试。</p>
+<p>钩子可以用在任何组件中，并且避免了类组件 API 所依赖的这个关键字的许多陷阱。钩子不是从组件实例中访问属性，而是依赖于闭包。这使得它们具有值约束，并消除了在处理异步状态更新时可能出现的一些陈旧数据问题。</p>
+<p>有两种方式导入钩子：从<code>preact/hooks</code>或<code>preact/compat</code>。</p>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>理解钩子的最简单的方法是将它们与同等的基于类的<code>Components</code>进行比较。</p>
+<p>我们将使用一个简单的计数器组件作为我们的例子，它渲染了一个数字和一个将其增加一的按钮。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Counter</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  state = &#123;</span><br><span class="line">    value: <span class="number">0</span></span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  increment = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">this</span>.setState(<span class="function"><span class="params">prev</span> =&gt;</span> (&#123; <span class="attr">value</span>: prev.value +<span class="number">1</span> &#125;));</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">  render(props, state) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        Counter: &#123;state.value&#125;</span><br><span class="line">        &lt;button onClick=&#123;<span class="keyword">this</span>.increment&#125;&gt;Increment&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      &lt;/</span>div&gt;</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>现在，这里有一个用钩子构建的等价函数组件:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [value, setValue] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> increment = useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setValue(value + <span class="number">1</span>);</span><br><span class="line">  &#125;, [value]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      Counter: &#123;value&#125;</span><br><span class="line">      &lt;button onClick=&#123;increment&#125;&gt;Increment&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这一点上，它们似乎非常相似，然而我们可以进一步简化钩子版本。</p>
+<p>让我们将计数器逻辑提取到一个自定义的钩子中，使其易于在各个组件中重用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [value, setValue] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> increment = useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setValue(value + <span class="number">1</span>);</span><br><span class="line">  &#125;, [value]);</span><br><span class="line">  <span class="keyword">return</span> &#123; value, increment &#125;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第一个计数器</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CounterA</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; value, increment &#125; = useCounter();</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      Counter A: &#123;value&#125;</span><br><span class="line">      &lt;button onClick=&#123;increment&#125;&gt;Increment&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 第二个计数器，它呈现出不同的输出</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">CounterB</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; value, increment &#125; = useCounter();</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;h1&gt;Counter B: &#123;value&#125;&lt;<span class="regexp">/h1&gt;</span></span><br><span class="line"><span class="regexp">      &lt;p&gt;I'm a nice counter&lt;/</span>p&gt;</span><br><span class="line">      &lt;button onClick=&#123;increment&#125;&gt;Increment&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意:<code>CounterA</code> 和 <code>CounterB</code> 都是完全独立的。它们都使用<code>useCounter()</code>自定义钩子，但每个钩子都有自己的钩子相关状态的实例。</p>
+<blockquote>
+<p>觉得这看起来有点奇怪？你并不孤单!<br>我们很多人花了一段时间才习惯了这种做法。</p>
+</blockquote>
+<h2 id="依赖性参数"><a href="#依赖性参数" class="headerlink" title="依赖性参数"></a>依赖性参数</h2><p>许多钩子都接受一个参数，这个参数可以用来限制钩子的更新时间。<code>Preact</code> 会检查依赖关系数组中的每个值，并检查它是否在上次调用钩子后发生了变化。当没有指定依赖性参数时，钩子总是被执行。</p>
+<p>在上面的<code>useCounter()</code>实现中，我们向<code>useCallback()</code>传递了一个依赖关系数组。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">useCounter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [value, setValue] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> increment = useCallback(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    setValue(value + <span class="number">1</span>);</span><br><span class="line">  &#125;, [value]);  <span class="comment">// &lt;-- the dependency array</span></span><br><span class="line">  <span class="keyword">return</span> &#123; value, increment &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里传递<code>value</code> 会导致每当 <code>value</code> 改变时，<code>useCallback</code> 都会返回一个新的函数引用。这对于避免 “陈旧的闭包”是必要的，因为在这种情况下，回调总是会引用第一个渲染的 <code>value</code> 变量，当它被创建时，导致增量总是设置一个值为<code>1</code>。</p>
+<blockquote>
+<p>这样每次 <code>value</code> 发生变化时都会创建一个新的 <code>increment</code> 回调。出于性能方面的考虑，使用<code>useState</code>来更新状态值通常比使用依赖关系保留当前值要好。</p>
+</blockquote>
+<h2 id="有状态钩子"><a href="#有状态钩子" class="headerlink" title="有状态钩子"></a>有状态钩子</h2><p>下面我们就来看看如何在功能组件中引入状态逻辑。</p>
+<p>在引入钩子之前，任何需要状态的地方都需要类组件。</p>
+<h3 id="useState"><a href="#useState" class="headerlink" title="useState"></a>useState</h3><p>这个钩子接受一个参数，这将是初始状态。当调用这个钩子时，会返回一个由两个变量组成的数组，第一个是当前状态，第二个是我们的状态设置器。</p>
+<p>我们的<code>setter</code>的行为类似于经典状态的<code>setter</code>，它接受一个以<code>currentState</code>为参数的值或函数。当你调用<code>setter</code>而状态不同时，它将从使用了该<code>useState</code>的组件开始重新渲染。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; h &#125; <span class="keyword">from</span> <span class="string">'preact'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">'preact/hooks'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Counter = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [count, setCount] = useState(<span class="number">0</span>);</span><br><span class="line">  <span class="keyword">const</span> increment = <span class="function"><span class="params">()</span> =&gt;</span> setCount(count + <span class="number">1</span>);</span><br><span class="line">  <span class="comment">// 你也可以将回调传递给 setter</span></span><br><span class="line">  <span class="keyword">const</span> decrement = <span class="function"><span class="params">()</span> =&gt;</span> setCount(<span class="function">(<span class="params">currentCount</span>) =&gt;</span> currentCount - <span class="number">1</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;Count: &#123;count&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;increment&#125;&gt;Increment&lt;/</span>button&gt;</span><br><span class="line">      &lt;button onClick=&#123;decrement&#125;&gt;Decrement&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当我们的初始状态开销很大时，最好传递一个函数而不是一个值。</p>
+</blockquote>
+<h3 id="useReducer"><a href="#useReducer" class="headerlink" title="useReducer"></a>useReducer</h3><p><code>useReducer</code> 钩子与 <code>redux</code> 有很相似的地方。与 <code>useState</code> 相比，当你有复杂的状态逻辑，下一个状态取决于上一个状态时，它更容易使用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> initialState = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">const</span> reducer = <span class="function">(<span class="params">state, action</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">switch</span> (action) &#123;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'increment'</span>: <span class="keyword">return</span> state + <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'decrement'</span>: <span class="keyword">return</span> state - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">case</span> <span class="string">'reset'</span>: <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">default</span>: <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Unexpected action'</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Counter</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Returns the current state and a dispatch function to</span></span><br><span class="line">  <span class="comment">// trigger an action</span></span><br><span class="line">  <span class="keyword">const</span> [count, dispatch] = useReducer(reducer, initialState);</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &#123;count&#125;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; dispatch(<span class="string">'increment'</span>)&#125;&gt;+<span class="number">1</span>&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">      &lt;button onClick=&#123;() =&gt; dispatch('decrement')&#125;&gt;-1&lt;/</span>button&gt;</span><br><span class="line">      &lt;button onClick=&#123;() =&gt; dispatch(<span class="string">'reset'</span>)&#125;&gt;reset&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="记忆化"><a href="#记忆化" class="headerlink" title="记忆化"></a>记忆化</h2><p>在 UI 编程中，经常会有一些状态或结果需要耗时的计算。<code>Memoization</code>可以缓存该计算结果，使其在使用相同的输入时可以重复使用。</p>
+<h3 id="useMemo"><a href="#useMemo" class="headerlink" title="useMemo"></a>useMemo</h3><p>通过<code>useMemo</code>钩子，我们可以记住其计算结果，只有当其中一个依赖关系发生变化时才重新计算。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> memoized = useMemo(</span><br><span class="line">  () =&gt; expensive(a, b),</span><br><span class="line">  <span class="comment">// 只有当依赖关系发生变化时，才重新运行expensive函数。</span></span><br><span class="line">  [a, b]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>不要在<code>useMemo</code>里面运行任何<code>effectful</code>代码。副作用属于<code>useEffect</code>。</p>
+</blockquote>
+<h3 id="useCallback"><a href="#useCallback" class="headerlink" title="useCallback"></a>useCallback</h3><p><code>useCallback</code> 钩子可以用来确保只要没有依赖关系发生变化，返回的函数就会保持引用平等。当子组件依赖引用平等来跳过更新时，这可以用来优化子组件的更新（例如 <code>shouldComponentUpdate</code>）。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> onClick = useCallback(</span><br><span class="line">  () =&gt; <span class="built_in">console</span>.log(a, b),</span><br><span class="line">  [a, b]</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>有趣的是：<code>useCallback(fn，deps)</code> 相当于<code>useMemo(()=&gt;fn，deps)</code> 。</p>
+</blockquote>
+<h2 id="使用引用"><a href="#使用引用" class="headerlink" title="使用引用"></a>使用引用</h2><p>要在一个功能组件中获取一个 DOM 节点的引用，有一个 <code>useRef</code> 钩子。它的工作原理类似于 <code>createRef</code> 。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Foo</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="comment">// Initialize useRef with an initial value of `null`</span></span><br><span class="line">  <span class="keyword">const</span> input = useRef(<span class="literal">null</span>);</span><br><span class="line">  <span class="keyword">const</span> onClick = <span class="function"><span class="params">()</span> =&gt;</span> input.current &amp;&amp; input.current.focus();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;input ref=&#123;input&#125; /&gt;</span><br><span class="line">      &lt;button onClick=&#123;onClick&#125;&gt;Focus input&lt;<span class="regexp">/button&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意不要把 <code>useRef</code> 和 <code>createRef</code> 混淆。</p>
+</blockquote>
+<h2 id="使用上下文"><a href="#使用上下文" class="headerlink" title="使用上下文"></a>使用上下文</h2><p>要在功能组件中访问上下文，我们可以使用 <code>useContext</code> 钩子，而不需要任何高阶或包装组件。</p>
+<p>第一个参数必须是由 <code>createContext</code> 调用创建的上下文对象。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Theme = createContext(<span class="string">'light'</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">DisplayTheme</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> theme = useContext(Theme);</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Active theme: &#123;theme&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// ...later</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">App</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Theme.Provider value=<span class="string">"light"</span>&gt;</span><br><span class="line">      &lt;OtherComponent&gt;</span><br><span class="line">        &lt;DisplayTheme /&gt;</span><br><span class="line">      &lt;<span class="regexp">/OtherComponent&gt;</span></span><br><span class="line"><span class="regexp">    &lt;/</span>Theme.Provider&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h2><p>副作用是许多现代 Apps 的核心。无论你是想从 API 中获取一些数据，还是想在文档上触发一个效果，你会发现 <code>useEffect</code> 几乎可以满足你所有的需求。这也是 hooks API 的主要优势之一，它重新塑造了你的思维，让你以效果而不是组件的生命周期来思考。</p>
+<h3 id="useEffect"><a href="#useEffect" class="headerlink" title="useEffect"></a>useEffect</h3><p>顾名思义，<code>useEffect</code> 是触发各种副作用的主要方式。如果需要的话，你甚至可以从你的<code>effect</code>中返回一个清理函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// Trigger your effect</span></span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// Optional: Any cleanup code</span></span><br><span class="line">  &#125;;</span><br><span class="line">&#125;, []);</span><br></pre></td></tr></table></figure>
+<p>我们先从 Title 组件开始，它应该反映出文档的标题，这样我们就可以在浏览器标签页的地址栏中看到它。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">PageTitle</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">document</span>.title = props.title;</span><br><span class="line">  &#125;, [props.title]);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>&#123;props.title&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>useEffect</code> 的第一个参数是一个触发效果的无参数回调。在我们的例子中，我们只想触发它，当标题真的发生了变化。当它保持不变时，更新它就没有意义了。这就是为什么我们要用第二个参数来指定我们的依赖关系数组。</p>
+<p>但有时我们有一个更复杂的用例。想象一下一个组件，当它挂载时需要订阅一些数据，而当它卸载时需要取消订阅。这也可以通过 <code>useEffect</code> 来完成。要运行任何清理代码，我们只需要在回调中返回一个函数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Component that will always display the current window width</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">WindowWidth</span>(<span class="params">props</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> [width, setWidth] = useState(<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">onResize</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    setWidth(<span class="built_in">window</span>.innerWidth);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  useEffect(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">window</span>.addEventListener(<span class="string">'resize'</span>, onResize);</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="params">()</span> =&gt;</span> <span class="built_in">window</span>.removeEventListener(<span class="string">'resize'</span>, onResize);</span><br><span class="line">  &#125;, []);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Window width: &#123;width&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>清理函数是可选的。如果你不需要运行任何清理代码，你不需要在传递给 <code>useEffect</code> 的回调中返回任何东西。</p>
+</blockquote>
+<h3 id="useLayoutEffect"><a href="#useLayoutEffect" class="headerlink" title="useLayoutEffect"></a>useLayoutEffect</h3><p>该签名与 <code>useEffect</code> 相同，但它将在组件被扩散且浏览器有机会绘制时立即启动。</p>
+<h3 id="useErrorBoundary"><a href="#useErrorBoundary" class="headerlink" title="useErrorBoundary"></a>useErrorBoundary</h3><p>每当一个子组件抛出一个错误时，你可以使用这个钩子来捕捉它并向用户显示一个自定义的错误 UI。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// error = The error that was caught or `undefined` if nothing errored.</span></span><br><span class="line"><span class="comment">// resetError = Call this function to mark an error as resolved. It's</span></span><br><span class="line"><span class="comment">//   up to your app to decide what that means and if it is possible</span></span><br><span class="line"><span class="comment">//   to recover from errors.</span></span><br><span class="line"><span class="keyword">const</span> [error, resetError] = useErrorBoundary();</span><br></pre></td></tr></table></figure>
+<p>出于监控的目的，任何错误的通知服务都是非常有用的。为此，我们可以利用一个可选的回调，并将其作为 <code>useErrorBoundary</code> 的第一个参数。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> [error] = useErrorBoundary(<span class="function"><span class="params">error</span> =&gt;</span> callMyApi(error.message));</span><br></pre></td></tr></table></figure>
+<p>一个完整的使用例子可能是这样的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> App = <span class="function"><span class="params">props</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> [error, resetError] = useErrorBoundary(</span><br><span class="line">    error =&gt; callMyApi(error.message)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Display a nice error message</span></span><br><span class="line">  <span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">      &lt;div&gt;</span><br><span class="line">        &lt;p&gt;&#123;error.message&#125;&lt;<span class="regexp">/p&gt;</span></span><br><span class="line"><span class="regexp">        &lt;button onClick=&#123;resetError&#125;&gt;Try again&lt;/</span>button&gt;</span><br><span class="line">      &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">    );</span></span><br><span class="line"><span class="regexp">  &#125; else &#123;</span></span><br><span class="line"><span class="regexp">    return &lt;div&gt;&#123;props.children&#125;&lt;/</span>div&gt;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果你过去一直在使用基于类的组件 API，那么这个 hook 本质上是 <code>componentDidCatch</code> 生命周期方法的替代品。这个钩子是在 Preact 10.2.0 中引入的。</p>
+</blockquote>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2021-01-19T15:51:08.616Z" itemprop="dateUpdated">2021-01-19 23:51:08</time>
+</span><br>
+
+
+        
+        原始链接：<a href="/posts/3329/" target="_blank" rel="external">http://suiang.cn/posts/3329/</a>
+        
+    </div>
+    <footer>
+        <a href="http://suiang.cn">
+            <img src="/img/avatar.jpg" alt="苏扬">
+            苏扬
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hooks/">Hooks</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://suiang.cn/posts/3329/&title=《Preact Hooks》 — MY+&pic=http://suiang.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://suiang.cn/posts/3329/&title=《Preact Hooks》 — MY+&source=Hooks 是一个新的概念，它允许你组成状态和副作用。它们允许你在组件之间重用有状态逻辑。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://suiang.cn/posts/3329/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Preact Hooks》 — MY+&url=http://suiang.cn/posts/3329/&via=http://suiang.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://suiang.cn/posts/3329/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/posts/13294/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">计算机的源头二进制</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>苏扬 &copy; 2015 - 2021</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://suiang.cn/posts/3329/&title=《Preact Hooks》 — MY+&pic=http://suiang.cn/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://suiang.cn/posts/3329/&title=《Preact Hooks》 — MY+&source=Hooks 是一个新的概念，它允许你组成状态和副作用。它们允许你在组件之间重用有状态逻辑。" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://suiang.cn/posts/3329/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Preact Hooks》 — MY+&url=http://suiang.cn/posts/3329/&via=http://suiang.cn" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://suiang.cn/posts/3329/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=http://suiang.cn/posts/3329/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.0"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.0" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
