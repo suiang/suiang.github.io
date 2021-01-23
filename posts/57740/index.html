@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="MY+">
 <meta property="og:description" content="大家知道Chrome每个版本的适用ChromeDriver版本都不一样，安装不同的Chrome就要去下载不同的ChromeDriver.exe，而且还要命令行启动，绑定固定端口一搞不好还会跟别的进程冲突了。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2021-01-13T15:19:45.724Z">
+<meta property="og:updated_time" content="2021-01-22T14:37:22.626Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Chrome 系列范例">
 <meta name="twitter:description" content="大家知道Chrome每个版本的适用ChromeDriver版本都不一样，安装不同的Chrome就要去下载不同的ChromeDriver.exe，而且还要命令行启动，绑定固定端口一搞不好还会跟别的进程冲突了。">
@@ -222,7 +222,7 @@
 <h2 id="隐藏控制台"><a href="#隐藏控制台" class="headerlink" title="隐藏控制台"></a>隐藏控制台</h2><p>网上一些讨论认为这个问题无解，WebDriver也没有找到相关参数，<br>直觉这个可能在启动参数里打开控制台，于是我写了一个假的 chrome.exe，再用 ChromeDriver.exe 调用他，代码如下：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="built_in">console</span>;</span><br><span class="line"><span class="keyword">import</span> win.clip</span><br><span class="line"></span><br><span class="line">win.clip.write(_CMDLINE)</span><br><span class="line"><span class="built_in">console</span>.log(_CMDLINE);</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.pause();</span><br></pre></td></tr></table></figure>
 <p>chrome.exe获得的启动参数如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--disable-background-networking --disable-client-side-phishing-detection --disable-default-apps --disable-hang-monitor --disable-popup-blocking --disable-prompt-on-repost --disable-sync --disable-web-resources --enable-automation --enable-logging --force-fieldtrials=SiteIsolationExtensions/Control --ignore-certificate-errors --load-extension=&quot;C:\Users\***\AppData\Local\Temp\***\internal&quot; --log-level=0 --metrics-recording-only --no-first-run --password-store=basic --remote-debugging-port=0 --test-type=webdriver --use-mock-keychain --user-data-dir=&quot;C:\Users\***\AppData\Local\Temp\***&quot; data:,</span><br></pre></td></tr></table></figure>
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--disable-background-networking --disable-client-side-phishing-detection --disable-default-apps --disable-hang-monitor --disable-popup-blocking --disable-prompt-on-repost --disable-sync --disable-web-resources --enable-automation --enable-logging --force-fieldtrials=SiteIsolationExtensions/Control --ignore-certificate-errors --load-extension="C:\Users\***\AppData\Local\Temp\***\internal" --log-level=<span class="number">0</span> --metrics-recording-only --no-first-run --password-store=basic --remote-debugging-port=<span class="number">0</span> --test-<span class="built_in">type</span>=webdriver --use-mock-keychain --user-data-<span class="built_in">dir</span>="C:\Users\***\AppData\Local\Temp\***" data:,</span><br></pre></td></tr></table></figure>
 <p>我们看到可疑参数<code>--enable-logging</code>，<br>进一步测试发现：排除这个参数就可以关闭新版chrome启动跳出来的控制台窗口了，示例代码：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> chrome.driver;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> driver = chrome.driver( );</span><br><span class="line">driver.setOptions(</span><br><span class="line">    excludeSwitches =&#123;<span class="string">"enable-logging"</span>&#125; <span class="comment">//注意这里参数前千万不要加 --</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">driver.addArguments(<span class="string">"--app=http://www.aardio.com"</span>)</span><br><span class="line"><span class="keyword">var</span> browser = driver.startBrowser();</span><br></pre></td></tr></table></figure>
 <blockquote>
@@ -256,7 +256,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2021-01-13T15:19:45.724Z" itemprop="dateUpdated">2021-01-13 23:19:45</time>
+    最后更新时间：<time datetime="2021-01-22T14:37:22.626Z" itemprop="dateUpdated">2021-01-22 22:37:22</time>
 </span><br>
 
 
